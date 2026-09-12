@@ -1,0 +1,158 @@
+{
+  "pulled_at": "2026-09-13T11:13:47.418Z",
+  "max_limit_used": 50,
+  "collections": {
+    "listings": {
+      "endpoint": "/v1/listings",
+      "id_key": "listing_id",
+      "advertised_total": 3466,
+      "fetched_records": 3800,
+      "unique_ids": 3800,
+      "pages": 76,
+      "seconds": 8.3,
+      "id_collisions": [],
+      "problems": [],
+      "ordering_stable_on_refetch": true,
+      "stability_checks": [
+        {
+          "offset": 0,
+          "got": [
+            "DWE-3002501",
+            "SQU-3001712",
+            "DWE-3002085",
+            "100-3000777",
+            "MAG-3001756"
+          ],
+          "want": [
+            "DWE-3002501",
+            "SQU-3001712",
+            "DWE-3002085",
+            "100-3000777",
+            "MAG-3001756"
+          ],
+          "stable": true
+        },
+        {
+          "offset": 1900,
+          "got": [
+            "SQU-3002654",
+            "100-3001991",
+            "SQU-3000531",
+            "ZER-3001120",
+            "ZER-3000225"
+          ],
+          "want": [
+            "SQU-3002654",
+            "100-3001991",
+            "SQU-3000531",
+            "ZER-3001120",
+            "ZER-3000225"
+          ],
+          "stable": true
+        }
+      ]
+    },
+    "rentals": {
+      "endpoint": "/v1/rentals",
+      "id_key": "listing_id",
+      "advertised_total": 1323,
+      "fetched_records": 1450,
+      "unique_ids": 1450,
+      "pages": 29,
+      "seconds": 2.8,
+      "id_collisions": [],
+      "problems": [],
+      "ordering_stable_on_refetch": true,
+      "stability_checks": [
+        {
+          "offset": 0,
+          "got": [
+            "R3000001",
+            "R3000438",
+            "R3000002",
+            "R3000003",
+            "R3000004"
+          ],
+          "want": [
+            "R3000001",
+            "R3000438",
+            "R3000002",
+            "R3000003",
+            "R3000004"
+          ],
+          "stable": true
+        },
+        {
+          "offset": 725,
+          "got": [
+            "R3000726",
+            "R3000727",
+            "R3000728",
+            "R3000729",
+            "R3000730"
+          ],
+          "want": [
+            "R3000726",
+            "R3000727",
+            "R3000728",
+            "R3000729",
+            "R3000730"
+          ],
+          "stable": true
+        }
+      ]
+    },
+    "projects": {
+      "endpoint": "/v1/projects",
+      "id_key": "project_id",
+      "advertised_total": 401,
+      "fetched_records": 440,
+      "unique_ids": 440,
+      "pages": 9,
+      "seconds": 0.7,
+      "id_collisions": [],
+      "problems": [],
+      "ordering_stable_on_refetch": true,
+      "stability_checks": [
+        {
+          "offset": 0,
+          "got": [
+            "P30001",
+            "P30002",
+            "P30003",
+            "P30004",
+            "P30005"
+          ],
+          "want": [
+            "P30001",
+            "P30002",
+            "P30003",
+            "P30004",
+            "P30005"
+          ],
+          "stable": true
+        },
+        {
+          "offset": 220,
+          "got": [
+            "P30221",
+            "P30222",
+            "P30223",
+            "P30224",
+            "P30225"
+          ],
+          "want": [
+            "P30221",
+            "P30222",
+            "P30223",
+            "P30224",
+            "P30225"
+          ],
+          "stable": true
+        }
+      ]
+    }
+  },
+  "total_requests": 121,
+  "session_refreshes": 0
+}

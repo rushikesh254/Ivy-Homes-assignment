@@ -1,0 +1,27 @@
+{
+  "name": "ivy-homes-assignment",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Ivy Homes SWE internship assignment - API forensics against the reference documentation",
+  "engines": {
+    "node": ">=20.6"
+  },
+  "scripts": {
+    "recon": "node scripts/00-recon.js",
+    "pull": "node scripts/01-pull.js",
+    "profile": "node scripts/02-profile.js",
+    "units": "node scripts/03-units.js",
+    "time": "node scripts/04-time.js",
+    "dupes": "node scripts/05-dupes.js",
+    "fraud": "node scripts/06-fraud.js",
+    "corrupt": "node scripts/07-corrupt.js",
+    "probe": "node scripts/08-probe.js",
+    "probe2": "node scripts/09-probe2.js",
+    "saved": "node scripts/10-saved.js",
+    "answers": "node scripts/11-answers.js",
+    "verify": "node scripts/13-verify.js",
+    "submission": "node scripts/14-submission.js",
+    "analyse": "npm run profile && npm run units && npm run time && npm run dupes && npm run fraud && npm run corrupt && npm run answers && npm run submission && npm run verify"
+  }
+}

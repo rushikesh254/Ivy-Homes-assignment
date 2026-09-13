@@ -1,0 +1,571 @@
+{
+  "tail": {
+    "3750": {
+      "status": 200,
+      "limit": 50,
+      "offset": 3750,
+      "count": 50,
+      "total": 3466,
+      "has_more": false
+    },
+    "3799": {
+      "status": 200,
+      "limit": 50,
+      "offset": 3799,
+      "count": 1,
+      "total": 3466,
+      "has_more": false
+    },
+    "3800": {
+      "status": 200,
+      "limit": 50,
+      "offset": 3800,
+      "count": 0,
+      "total": 3466,
+      "has_more": false
+    },
+    "3801": {
+      "status": 200,
+      "limit": 50,
+      "offset": 3801,
+      "count": 0,
+      "total": 3466,
+      "has_more": false
+    },
+    "4000": {
+      "status": 200,
+      "limit": 50,
+      "offset": 4000,
+      "count": 0,
+      "total": 3466,
+      "has_more": false
+    }
+  },
+  "filters": [
+    {
+      "name": "locality=magarpatta",
+      "query": {
+        "locality": "magarpatta"
+      },
+      "localCount": 375,
+      "documented": true,
+      "status": 200,
+      "returned": 50,
+      "total": 342,
+      "violating": 0,
+      "verdict": "filters correctly",
+      "sample_violations": []
+    },
+    {
+      "name": "locality=Magarpatta (capitalised)",
+      "query": {
+        "locality": "Magarpatta"
+      },
+      "localCount": null,
+      "documented": true,
+      "status": 200,
+      "returned": 50,
+      "total": 342,
+      "violating": 0,
+      "verdict": "filters correctly",
+      "sample_violations": []
+    },
+    {
+      "name": "bhk=2",
+      "query": {
+        "bhk": 2
+      },
+      "localCount": 1243,
+      "documented": true,
+      "status": 200,
+      "returned": 50,
+      "total": 1134,
+      "violating": 0,
+      "verdict": "filters correctly",
+      "sample_violations": []
+    },
+    {
+      "name": "property_type=villa",
+      "query": {
+        "property_type": "villa"
+      },
+      "localCount": 278,
+      "documented": true,
+      "status": 200,
+      "returned": 50,
+      "total": 254,
+      "violating": 0,
+      "verdict": "filters correctly",
+      "sample_violations": []
+    },
+    {
+      "name": "min_price=20000000",
+      "query": {
+        "min_price": 20000000
+      },
+      "localCount": 231,
+      "documented": true,
+      "status": 200,
+      "returned": 50,
+      "total": 211,
+      "violating": 0,
+      "verdict": "filters correctly",
+      "sample_violations": []
+    },
+    {
+      "name": "max_price=5000000",
+      "query": {
+        "max_price": 5000000
+      },
+      "localCount": 213,
+      "documented": true,
+      "status": 200,
+      "returned": 50,
+      "total": 194,
+      "violating": 0,
+      "verdict": "filters correctly",
+      "sample_violations": []
+    },
+    {
+      "name": "furnishing=fully-furnished",
+      "query": {
+        "furnishing": "fully-furnished"
+      },
+      "localCount": 1287,
+      "documented": true,
+      "status": 200,
+      "returned": 50,
+      "total": 1174,
+      "violating": 0,
+      "verdict": "filters correctly",
+      "sample_violations": []
+    },
+    {
+      "name": "min_price+max_price band",
+      "query": {
+        "min_price": 8000000,
+        "max_price": 9000000
+      },
+      "localCount": 336,
+      "documented": true,
+      "status": 200,
+      "returned": 50,
+      "total": 306,
+      "violating": 0,
+      "verdict": "filters correctly",
+      "sample_violations": []
+    },
+    {
+      "name": "locality+bhk together",
+      "query": {
+        "locality": "baner",
+        "bhk": 3
+      },
+      "localCount": 147,
+      "documented": true,
+      "status": 200,
+      "returned": 50,
+      "total": 134,
+      "violating": 0,
+      "verdict": "filters correctly",
+      "sample_violations": []
+    },
+    {
+      "name": "project_id=P30001",
+      "query": {
+        "project_id": "P30001"
+      },
+      "localCount": 4,
+      "documented": "prose only",
+      "status": 200,
+      "returned": 50,
+      "total": 3466,
+      "violating": 50,
+      "verdict": "*** IGNORED: 50/50 returned records violate it ***",
+      "sample_violations": [
+        "DWE-3002501",
+        "SQU-3001712",
+        "DWE-3002085"
+      ]
+    },
+    {
+      "name": "is_live=true",
+      "query": {
+        "is_live": true
+      },
+      "localCount": 2998,
+      "documented": false,
+      "status": 200,
+      "returned": 50,
+      "total": 3466,
+      "violating": 10,
+      "verdict": "*** IGNORED: 10/50 returned records violate it ***",
+      "sample_violations": [
+        "100-3000777",
+        "100-3002896",
+        "MAG-3001814"
+      ]
+    },
+    {
+      "name": "website=dwelling",
+      "query": {
+        "website": "dwelling"
+      },
+      "localCount": 771,
+      "documented": false,
+      "status": 200,
+      "returned": 50,
+      "total": 3466,
+      "violating": 40,
+      "verdict": "*** IGNORED: 40/50 returned records violate it ***",
+      "sample_violations": [
+        "SQU-3001712",
+        "100-3000777",
+        "MAG-3001756"
+      ]
+    },
+    {
+      "name": "bedroom=2 (instead of bhk)",
+      "query": {
+        "bedroom": 2
+      },
+      "localCount": 1243,
+      "documented": false,
+      "status": 200,
+      "returned": 50,
+      "total": 3466,
+      "violating": 31,
+      "verdict": "*** IGNORED: 31/50 returned records violate it ***",
+      "sample_violations": [
+        "DWE-3002501",
+        "100-3000777",
+        "MAG-3001756"
+      ]
+    },
+    {
+      "name": "not_a_real_param=xyz",
+      "query": {
+        "not_a_real_param": "xyz"
+      },
+      "localCount": 3800,
+      "documented": false,
+      "status": 200,
+      "returned": 50,
+      "total": 3466,
+      "violating": 0,
+      "verdict": "filters correctly",
+      "sample_violations": []
+    },
+    {
+      "name": "locality=nonexistent",
+      "query": {
+        "locality": "zzz-nowhere"
+      },
+      "localCount": 0,
+      "documented": true,
+      "status": 200,
+      "returned": 0,
+      "total": 0,
+      "violating": 0,
+      "verdict": "returned nothing",
+      "sample_violations": []
+    }
+  ],
+  "sorting": [
+    {
+      "sortBy": "price",
+      "order": "asc",
+      "status": 200,
+      "verdict": "sorts as asked",
+      "first": -15890000,
+      "last": 3370000
+    },
+    {
+      "sortBy": "price",
+      "order": "desc",
+      "status": 200,
+      "verdict": "*** sorted ASC despite order=desc ***",
+      "first": -15890000,
+      "last": 3370000
+    },
+    {
+      "sortBy": "carpet_area",
+      "order": "asc",
+      "status": 200,
+      "verdict": "sorts as asked",
+      "first": 318,
+      "last": 434
+    },
+    {
+      "sortBy": "carpet_area",
+      "order": "desc",
+      "status": 200,
+      "verdict": "*** sorted ASC despite order=desc ***",
+      "first": 318,
+      "last": 434
+    },
+    {
+      "sortBy": "posted_at",
+      "order": "asc",
+      "status": 200,
+      "verdict": "*** not sorted at all ***",
+      "first": "2026-01-13T20:12:00",
+      "last": "2026-01-16T19:19:00"
+    },
+    {
+      "sortBy": "posted_at",
+      "order": "desc",
+      "status": 200,
+      "verdict": "*** not sorted at all ***",
+      "first": "2026-01-13T20:12:00",
+      "last": "2026-01-16T19:19:00"
+    },
+    {
+      "sortBy": "bedroom",
+      "order": "asc",
+      "status": 200,
+      "verdict": "all values equal - inconclusive",
+      "first": 0,
+      "last": 0
+    },
+    {
+      "sortBy": "bedroom",
+      "order": "desc",
+      "status": 200,
+      "verdict": "all values equal - inconclusive",
+      "first": 0,
+      "last": 0
+    }
+  ],
+  "paths": [
+    {
+      "path": "/v1/listing/DWE-3002501",
+      "documented": "yes - GET /v1/listing/{listing_id}",
+      "status": 404,
+      "shape": "{\"detail\":\"Not Found\"}"
+    },
+    {
+      "path": "/v1/listings/DWE-3002501",
+      "documented": "no",
+      "status": 200,
+      "shape": "object keys: listing_id,listing_url,website,city_id,apartment_name,locality,..."
+    },
+    {
+      "path": "/v1/rentals/R3000001",
+      "documented": "yes - GET /v1/rentals/{listing_id}",
+      "status": 200,
+      "shape": "object keys: listing_id,listing_url,website,city_id,title,apartment_name,..."
+    },
+    {
+      "path": "/v1/rental/R3000001",
+      "documented": "no",
+      "status": 404,
+      "shape": "{\"detail\":\"Not Found\"}"
+    },
+    {
+      "path": "/v1/projects/P30001",
+      "documented": "yes - GET /v1/projects/{project_id}",
+      "status": 200,
+      "shape": "object keys: project_id,project_url,city_id,apartment_name,developer_name,locality,..."
+    },
+    {
+      "path": "/v1/project/P30001",
+      "documented": "no",
+      "status": 404,
+      "shape": "{\"detail\":\"Not Found\"}"
+    },
+    {
+      "path": "/v1/listings/DWE-3002501/similar",
+      "documented": "yes - up to ten comparable listings",
+      "status": 404,
+      "shape": "{\"detail\":\"Not Found\"}"
+    },
+    {
+      "path": "/v1/listing/DWE-3002501/similar",
+      "documented": "no",
+      "status": 404,
+      "shape": "{\"detail\":\"Not Found\"}"
+    },
+    {
+      "path": "/v1/listings/NOT-A-REAL-ID",
+      "documented": "n/a - expect 404",
+      "status": 404,
+      "shape": "{\"detail\":\"no such listing in your city\"}"
+    },
+    {
+      "path": "/v1/analytics/summary",
+      "documented": "yes - full schema given",
+      "status": 404,
+      "shape": "{\"detail\":\"Not Found\"}"
+    },
+    {
+      "path": "/v1/analytics",
+      "documented": "no",
+      "status": 404,
+      "shape": "{\"detail\":\"Not Found\"}"
+    }
+  ],
+  "favourites": {
+    "initial": {
+      "detail": "Not Found"
+    },
+    "after_two_posts": {
+      "detail": "Not Found"
+    },
+    "demo2": {
+      "detail": "Not Found"
+    },
+    "keys": [
+      "detail"
+    ]
+  },
+  "auth_extras": {
+    "bad_token": {
+      "status": 401,
+      "body": {
+        "detail": "malformed or tampered token"
+      }
+    },
+    "wrong_password": {
+      "status": 401,
+      "body": {
+        "detail": "invalid email or password"
+      }
+    },
+    "unknown_user": {
+      "status": 401,
+      "body": {
+        "detail": "invalid email or password"
+      }
+    },
+    "logout": {
+      "status": 200,
+      "body": {
+        "ok": true,
+        "note": "tokens are stateless; discard them client side"
+      }
+    },
+    "token_after_logout": {
+      "status": 200,
+      "body": {
+        "limit": 1,
+        "offset": 0,
+        "count": 1,
+        "total": 3466,
+        "has_more": true,
+        "results": [
+          {
+            "listing_id": "DWE-3002501",
+            "listing_url": "https://www.dwelling.com/property/3002501",
+            "website": "dwelling",
+            "city_id": 3,
+            "apartment_name": "Puravankara Sanctuary",
+            "locality": "wakad",
+            "property_type": "apartment",
+            "bedroom": 1,
+            "bathroom": 1,
+            "balcony": 2,
+            "floor": 21,
+            "total_floors": 30,
+            "furnishing": "unfurnished",
+            "facing_direction": "west",
+            "covered_parking": 1,
+            "price": 4140000,
+            "carpet_area": 493,
+            "super_built_up_area": 652,
+            "latitude": 18.54624,
+            "longitude": 73.70896,
+            "posted_by": "builder",
+            "posted_by_name": "Ananya Iyer",
+            "posted_by_contact": "+912004122182",
+            "project_id": "P30381",
+            "is_verified": true,
+            "description": "Spacious 1 BHK apartment in Puravankara Sanctuary, Wakad. Unfurnished, west-facing. Close to the metro; near schools and hospitals.",
+            "posted_at": "2026-04-30T14:57:00",
+            "is_live": true
+          }
+        ]
+      }
+    },
+    "bad_refresh": {
+      "status": 401,
+      "body": {
+        "detail": "malformed or tampered token"
+      }
+    }
+  },
+  "other_filters": [
+    {
+      "path": "/v1/rentals",
+      "query": {
+        "locality": "magarpatta"
+      },
+      "local": 130,
+      "status": 200,
+      "returned": 50,
+      "total": 119,
+      "violating": 0,
+      "verdict": "filters correctly"
+    },
+    {
+      "path": "/v1/rentals",
+      "query": {
+        "bhk": 3
+      },
+      "local": 440,
+      "status": 200,
+      "returned": 50,
+      "total": 401,
+      "violating": 0,
+      "verdict": "filters correctly"
+    },
+    {
+      "path": "/v1/rentals",
+      "query": {
+        "furnishing": "unfurnished"
+      },
+      "local": 482,
+      "status": 200,
+      "returned": 50,
+      "total": 440,
+      "violating": 0,
+      "verdict": "filters correctly"
+    },
+    {
+      "path": "/v1/rentals",
+      "query": {
+        "min_price": 50000
+      },
+      "local": 261,
+      "status": 200,
+      "returned": 50,
+      "total": 1323,
+      "violating": 37,
+      "verdict": "*** IGNORED: 37/50 violate ***"
+    },
+    {
+      "path": "/v1/projects",
+      "query": {
+        "locality": "kharadi"
+      },
+      "local": 57,
+      "status": 200,
+      "returned": 50,
+      "total": 52,
+      "violating": 0,
+      "verdict": "filters correctly"
+    },
+    {
+      "path": "/v1/projects",
+      "query": {
+        "project_status": "ready to move"
+      },
+      "local": 157,
+      "status": 200,
+      "returned": 50,
+      "total": 143,
+      "violating": 0,
+      "verdict": "filters correctly"
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+snapshot: 2026-09-13T11:13:47.418Z
+listings 3800  rentals 1450  projects 440
+
+==============================================================================
+1. total_listing_records
+==============================================================================
+  records obtained by paging /v1/listings with no filters to has_more=false: 3800
+  the endpoint's own `total` field claims                                  : 3466
+  distinct listing_id values                                                : 3800
+  offset=3800 returns count=0, has_more=false (see notes/08-probe.json)
+
+==============================================================================
+2. unique_properties
+==============================================================================
+  distinct properties : 3230
+  duplicate records   : 570
+  rule: identical on locality, bedroom, bathroom, balcony, covered_parking,
+        floor, total_floors, furnishing, facing_direction and property_type;
+        carpet area within 2% after unit correction; within 200m.
+  stability: same count for carpet tolerance 0.98..0.80 and distance 200m..1000m
+
+==============================================================================
+3. active_listings
+==============================================================================
+  is_live true  : 2998
+  is_live false : 802
+  the docs claim inactive listings are excluded server side; 802 are not.
+
+==============================================================================
+4. corrupt_listing_ids
+==============================================================================
+  42 records, six contradictions of exactly 7 each:
+    transposed latitude/longitude, negative price, floor above total_floors,
+    carpet area above super built-up, posted after REFERENCE,
+    non-plot with zero bedrooms and zero bathrooms
+  plots excluded deliberately: all 136 have bedroom/bathroom/floor 0 and
+  carpet == super, which is correct for land.
+
+==============================================================================
+5. total_monthly_rent  (assigned locality: Magarpatta)
+==============================================================================
+  rentals with locality = "magarpatta" : 130
+  sum of price                         : 48,55,700
+  mean / median monthly rent           : 37352 / 35350
+
+  the locality field is used, not the title. The title's locality matches the
+  locality field in 0 of 1450 rentals; the description matches it in 1450 of
+  1450. No rental has "magarpatta" in its title at all.
+  no unit correction: rent per carpet sq ft runs 22-60 with p99 at 59.5, so no
+  annual figures are mixed in. No is_live filter: the question says all
+  retrievable records.
+  for reference, live-only would be 41,59,400 over 110 records
+
+==============================================================================
+6. avg_price_per_sqft_2bhk
+==============================================================================
+  live 2 BHK records                        : 978
+  minus the 42 corrupt and 320 fake ids   : 859 records
+  mean of (price / carpet area in sq ft)    : 10844.99
+  median, for comparison                    : 10595.65
+
+  the mean of the per-record ratio, as the question asks - not total price
+  divided by total area, which would give 10840.58
+  66 of these records needed the square-metre correction.
+  without that correction the answer would be 19042.07 - wrong by ~76%
+
+==============================================================================
+7. costliest_project
+==============================================================================
+  P30288  served price_max=4.47 (crore) -> Γé╣4,47,00,000
+  implied Γé╣12,764 per sq ft on its 3502 sq ft top unit
+
+  next four:
+    P30204  served= 4.08 -> Γé╣4,08,00,000
+    P30244  served=    4 -> Γé╣4,00,00,000
+    P30180  served= 3.95 -> Γé╣3,95,00,000
+    P30270  served= 3.88 -> Γé╣3,88,00,000
+
+  the wrong answers this avoids:
+    treating price_max as rupees        -> P30394 at Γé╣99.9
+    treating every price_max as crores  -> P30394 at Γé╣99,90,00,000
+    P30394's served 99.9 is 99.9 LAKH, because the value is below a crore.
+
+==============================================================================
+8. listings_last_7_days
+==============================================================================
+  window [REFERENCE - 7d, REFERENCE) in IST = [2026-09-03 00:00, 2026-09-10 00:00)
+  records: 128
+    2026-09-03   12
+    2026-09-04   20
+    2026-09-05   15
+    2026-09-06   18
+    2026-09-07   17
+    2026-09-08   17
+    2026-09-09   29
+
+  naive stamps read as IST (chosen) : 128
+  naive stamps read as UTC          : 115
+  IST is settled by where the data stops - see scripts/04-time.js
+
+==============================================================================
+9. fake_listing_ids
+==============================================================================
+  320 records across 12 phone numbers
+  each number carries 3 to 5 different posted_by_name values and is always
+  role "agent". No contact in the dataset has exactly 2 names - the
+  distribution is 1 (630 contacts) or 3-5 (12 contacts), so this is a
+  planted set rather than a tail.
+  independent confirmation: 41.3% sit below 0.6x the median price per sq ft
+  for their locality and bedroom count, against 0.7% of everything else.
+  contacts: +912001427722, +912002255305, +912002380640, +912002574181, +912002642467, +912004249280, +912006064871, +912006085798, +912008344844, +912009027125, +912009460980, +912009819040
+
+==============================================================================
+10. projects_with_wrong_listing_count
+==============================================================================
+  candidate readings of "how many listings it has":
+    all_records              exact match on 123 of 440 projects, wrong on 317
+    live_only                exact match on 345 of 440 projects, wrong on 95
+    live_and_not_duplicate   exact match on 189 of 440 projects, wrong on 251
+    not_duplicate            exact match on 134 of 440 projects, wrong on 306
+
+  chosen: live_only. It agrees exactly on 345 of 440 projects against
+  123 for all records, and it matches the documented wording
+  "the number of listings currently available in the project".
+  answer: 95
+
+==============================================================================
+the ten answers
+==============================================================================
+{
+  "total_listing_records": 3800,
+  "unique_properties": 3230,
+  "active_listings": 2998,
+  "corrupt_listing_ids": "[42 ids]",
+  "total_monthly_rent": 4855700,
+  "avg_price_per_sqft_2bhk": 10844.99,
+  "costliest_project": {
+    "project_id": "P30288",
+    "price_max_inr": 44700000
+  },
+  "listings_last_7_days": 128,
+  "fake_listing_ids": "[320 ids]",
+  "projects_with_wrong_listing_count": 95
+}
+
+wrote data/derived/answers.json and workings.json

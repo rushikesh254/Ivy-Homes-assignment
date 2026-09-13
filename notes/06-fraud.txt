@@ -1,0 +1,144 @@
+
+==============================================================================
+A. The shape of the contact-number population
+==============================================================================
+  642 distinct contacts across 3800 listings
+
+--- joint distribution of (distinct names, distinct roles) per contact ---
+    names=1,roles=1        contacts=  73  listings= 222
+    names=1,roles=2        contacts= 300  listings=1538
+    names=1,roles=3        contacts= 257  listings=1720
+    names=3,roles=1        contacts=   1  listings=  30
+    names=4,roles=1        contacts=   6  listings= 149
+    names=5,roles=1        contacts=   5  listings= 141
+
+  distinct-name counts observed: [1,3,4,5]
+  -> no contact has exactly 2 names. Two separated populations, not a tail.
+
+--- HYPOTHESIS 1, REJECTED: one name, several roles ---
+  contacts matching: 557 of 642   listings: 3258 of 3800
+  86.8% of all contacts. This describes the dataset, not a fraud ring.
+
+--- HYPOTHESIS 2: several names, exactly one role ---
+  contacts matching: 12   listings: 320
+    +912002574181  n= 31  names=5  roles=agent  localities= 9  [Divya Iyer, Varun Bhat, Pooja Iyer, Kavya Reddy, Pooja Patel]
+    +912009819040  n= 30  names=3  roles=agent  localities= 9  [Deepa Desai, Pooja Kulkarni, Elite Properties]
+    +912006085798  n= 30  names=5  roles=agent  localities= 9  [Dream Space, Deepa Verma, Prime Realty, Vertex Realty, Metro Realtors]
+    +912009460980  n= 29  names=4  roles=agent  localities=10  [Elite Properties, Nexus Properties, Deepa Verma, Varun Menon]
+    +912009027125  n= 29  names=5  roles=agent  localities= 9  [Orbit Estates, Pooja Kulkarni, Manish Sharma, Nexus Properties, Star Housing]
+    +912001427722  n= 29  names=4  roles=agent  localities= 9  [Metro Realtors, Elite Properties, Deepa Verma, Ananya Patel]
+    +912006064871  n= 29  names=5  roles=agent  localities=10  [Urban Nest, Deepa Verma, Star Housing, Ananya Patel, Manish Sharma]
+    +912002255305  n= 29  names=4  roles=agent  localities= 8  [Suresh Joshi, Vertex Realty, Varun Kumar, Anchor Homes]
+    +912002642467  n= 25  names=4  roles=agent  localities=10  [Karthik Joshi, Sneha Desai, Manish Joshi, Karthik Kulkarni]
+    +912008344844  n= 22  names=5  roles=agent  localities= 8  [Shreya Iyer, Manish Verma, Ananya Gupta, Kavya Gupta, Aditya Kumar]
+    +912002380640  n= 19  names=4  roles=agent  localities= 9  [Varun Kumar, Manish Kumar, Naveen Iyer, Shreya Bhat]
+    +912004249280  n= 18  names=4  roles=agent  localities= 8  [Shreya Shetty, Shreya Menon, Rahul Nair, Shreya Patel]
+
+==============================================================================
+B. A second, independent signal: is the price plausible?
+==============================================================================
+  relative price per sq ft, p5 / p25 / p50 / p75 / p95
+    multi-name contacts (320 records) : 0.351 / 0.502 / 0.655 / 0.942 / 1.333
+    everything else     (3473 records): 0.693 / 0.849 / 1.013 / 1.204 / 1.403
+
+  share below 0.6x their peer median:
+    multi-name contacts : 41.3%
+    everything else     : 0.7%
+    enrichment          : 57.3x
+
+  distribution of the relative price for the multi-name group:
+        0.26 |    12 #############
+        0.34 |    35 #####################################
+        0.43 |    37 ########################################
+        0.51 |    42 #############################################
+        0.59 |    43 ##############################################
+        0.67 |    36 #######################################
+        0.75 |    20 #####################
+        0.83 |    13 ##############
+        0.91 |     9 ##########
+        0.99 |    25 ###########################
+        1.07 |    12 #############
+        1.15 |    12 #############
+        1.23 |     5 #####
+        1.31 |    15 ################
+        1.39 |     3 ###
+        1.48 |     1 #
+
+==============================================================================
+C. Other properties of the flagged set
+==============================================================================
+  flagged: 320 listings on 12 contacts
+  is_verified  flagged [[true,273],[false,47]]  all [[true,2337],[false,1463]]
+  is_live      flagged [[true,291],[false,29]]  all [[true,2998],[false,802]]
+  posted_by    flagged [["agent",320]]
+  website      flagged [["zerobroker",87],["dwelling",68],["squarelane",58],["magichomes",54],["100acres",53]]
+  locality     flagged [["hadapsar",41],["hinjewadi",40],["wakad",36],["viman nagar",35],["magarpatta",35],["kothrud",31],["kharadi",29],["baner",25],["balewadi",25],["aundh",23]]
+  price        min 17,80,000  median 71,25,000  max 2,73,30,000
+
+  85% is_verified against 62% overall, and 91% live against 79%, which is what
+  a listing built to attract enquiries would look like.
+
+--- the same 12 numbers in the rentals collection? ---
+  flagged contacts appearing in /v1/rentals: 0
+  rentals have 1450 distinct contacts for 1450 records - one each, so no clustering is possible there.
+
+==============================================================================
+D. Signals tested and NOT used
+==============================================================================
+
+--- repeated description text ---
+  descriptions used by more than one listing: 1
+    x2: Well maintained 3 BHK apartment in Mantri Crest, Hinjewadi. Unfurnished, north-w
+         MAG-3002963 +912002116344 hinjewadi flagged=false
+         DWE-3001594 +912003786579 hinjewadi flagged=false
+  too few to be a rule.
+
+--- description contradicting the structured fields ---
+  descriptions stating a BHK: 3664, disagreeing with the bedroom field: 0
+  descriptions naming a different locality than the locality field: 0
+  the seller-written text agrees with the structured fields, so "a seller can
+  write anything" does not cash out as a fraud signal on this data.
+
+--- listing volume per contact on its own ---
+  listings-per-contact distribution: [[1,15],[2,41],[3,75],[4,95],[5,116],[6,85],[7,78],[8,49],[9,44],[10,15],[11,7],[12,7],[13,1],[14,1],[16,1],[18,1],[19,1],[22,1],[25,1],[29,5],[30,2],[31,1]]
+  the flagged 12 hold 18-31 each, but 15 unflagged contacts hold 10-13, so a
+  volume threshold alone would either miss the set or drag in real agencies.
+
+==============================================================================
+E. The answer to question 9
+==============================================================================
+  fake_listing_ids: 320 records across 12 phone numbers
+  contacts: +912001427722, +912002255305, +912002380640, +912002574181, +912002642467, +912004249280, +912006064871, +912006085798, +912008344844, +912009027125, +912009460980, +912009819040
+
+--- sensitivity ---
+    names >= 2 -> contacts  12  listings  320
+    names >= 3 -> contacts  12  listings  320
+    names >= 4 -> contacts  11  listings  290
+    names >= 5 -> contacts   5  listings  141
+    names >= 6 -> contacts   0  listings    0
+    the answer is identical for a threshold of 2 or 3, because no contact has
+    exactly 2 names. The choice of cutoff cannot change the result.
+
+--- a sample of the flagged listings ---
+
+  +912002574181  names=[Divya Iyer, Varun Bhat, Pooja Iyer, Kavya Reddy, Pooja Patel]  role=agent
+    MAG-3002640   magichomes  wakad        Divya Iyer        bhk=2 carpet=  745 price=   7880000 rel=0.97
+    DWE-3003591   dwelling    magarpatta   Varun Bhat        bhk=4 carpet= 1478 price=  19790000 rel=1.19
+    MAG-3000665   magichomes  kothrud      Pooja Iyer        bhk=3 carpet= 1319 price=  15460000 rel=1.14
+    ZER-3003475   zerobroker  viman nagar  Kavya Reddy       bhk=2 carpet=  979 price=   7950000 rel=0.81
+    SQU-3001262   squarelane  magarpatta   Varun Bhat        bhk=2 carpet=  761 price=   8700000 rel=1.11
+    ZER-3000413   zerobroker  kharadi      Kavya Reddy       bhk=3 carpet= 1247 price=  17700000 rel=1.36
+    ZER-3002073   zerobroker  hadapsar     Pooja Patel       bhk=2 carpet=  850 price=  10240000 rel=1.26
+    100-3002598   100acres    kharadi      Varun Bhat        bhk=3 carpet= 1156 price=  10510000 rel=0.87
+
+  +912009819040  names=[Deepa Desai, Pooja Kulkarni, Elite Properties]  role=agent
+    ZER-3001513   zerobroker  kharadi      Deepa Desai       bhk=3 carpet= 1116 price=   5400000 rel=0.46
+    MAG-3001920   magichomes  hadapsar     Pooja Kulkarni    bhk=3 carpet= 1286 price=   7890000 rel=0.60
+    SQU-3001267   squarelane  kharadi      Elite Properties  bhk=1 carpet=  496 price=   2190000 rel=0.44
+    ZER-3003419   zerobroker  magarpatta   Elite Properties  bhk=2 carpet=  883 price=   6200000 rel=0.68
+    MAG-3000402   magichomes  aundh        Elite Properties  bhk=2 carpet=  876 price=   5110000 rel=0.59
+    100-3001429   100acres    aundh        Elite Properties  bhk=2 carpet=  823 price=   4120000 rel=0.50
+    DWE-3000977   dwelling    aundh        Deepa Desai       bhk=2 carpet=  965 price=   6660000 rel=0.70
+    DWE-3003454   dwelling    aundh        Deepa Desai       bhk=3 carpet= 1214 price=   5490000 rel=0.42
+
+wrote notes\06-fraud.json

@@ -1,0 +1,176 @@
+
+==============================================================================
+A. How is apartment_name perturbed between duplicate records?
+==============================================================================
+  as served                distinct: 777
+  lowercase                distinct: 644
+  + collapse spaces        distinct: 587
+  + strip leading "the"    distinct: 510
+  + strip "phase N"        distinct: 437
+  full canonical           distinct: 324
+
+--- the collapsing groups (first 20) ---
+  250 canonical names have more than one served spelling
+    puravankara sanctuary          <- ["Puravankara Sanctuary","PURAVANKARA SANCTUARY","Puravankara Sanctuary Apartments"]
+    shriram park                   <- ["Shriram Park","shriram park","Shriram Park Apartments","SHRIRAM PARK"]
+    century residency              <- ["Century Residency","Century-Residency"]
+    rohan grand                    <- ["Rohan Grand","Rohan Grand Phase 1","rohan grand","Rohan  Grand","Rohan-Grand"]
+    aparna heights                 <- ["aparna heights","Aparna Heights"]
+    kolte patil habitat            <- ["Kolte Patil Habitat","Kolte-Patil-Habitat","Kolte Patil Habitat Phase 1","KOLTE PATIL HABITAT"]
+    puravankara willows            <- ["Puravankara Willows","Puravankara  Willows","PURAVANKARA WILLOWS"]
+    mantri boulevard               <- ["Mantri Boulevard","The Mantri Boulevard"]
+    shriram greens                 <- ["Shriram Greens","Shriram  Greens","SHRIRAM GREENS"]
+    century willows                <- ["century willows","Century Willows","Century-Willows"]
+    mantri willows                 <- ["Mantri Willows","The Mantri Willows","mantri willows"]
+    shriram heights                <- ["Shriram Heights","Shriram Heights Phase 1"]
+    brigade residency              <- ["Brigade Residency","Brigade Residency Apartments","Brigade-Residency","Brigade Residency Phase 1"]
+    sobha willows                  <- ["Sobha Willows","SOBHA WILLOWS","Sobha Willows Phase 1"]
+    adarsh pavilion                <- ["adarsh pavilion","Adarsh Pavilion","ADARSH PAVILION"]
+    aparna park                    <- ["Aparna Park","Aparna-Park","Aparna Park Phase 1","aparna park"]
+    assetz elite                   <- ["Assetz Elite","The Assetz Elite","ASSETZ ELITE","Assetz Elite Phase 1"]
+    casagrand meadows              <- ["Casagrand Meadows","CASAGRAND MEADOWS","Casagrand Meadows Apartments"]
+    casagrand serenity             <- ["Casagrand Serenity","Casagrand  Serenity"]
+    my home woods                  <- ["My Home Woods","MY HOME WOODS"]
+
+==============================================================================
+B. Candidate pairs
+==============================================================================
+  blocks: 3203   candidate pairs: 664
+  carpet ratio bands : [[">=0.98",622],["<0.90",33],["0.90-0.98",9]]
+  distance bands     : [["<100m",617],[">2km",42],["100-500m",4],["0.5-2km",1]]
+
+--- are the three signals independent, or do they agree? ---
+  carpet within 2%                          : 622
+  ... and within 100m                       : 617
+  ... and same canonical apartment name     : 617
+  loose pairs (carpet <0.98) within 100m    : 0
+  loose pairs (carpet <0.98) beyond 100m    : 42
+
+==============================================================================
+C. Where is the natural cut? Sensitivity of the answer to the threshold
+==============================================================================
+
+--- varying the carpet-area tolerance, distance fixed at 100m, names not required ---
+  carpet ratio >= 0.999  -> pairs   73  properties  3728  duplicate records   72
+  carpet ratio >= 0.998  -> pairs  131  properties  3673  duplicate records  127
+  carpet ratio >= 0.995  -> pairs  328  properties  3481  duplicate records  319
+  carpet ratio >= 0.99   -> pairs  582  properties  3248  duplicate records  552
+  carpet ratio >= 0.985  -> pairs  612  properties  3232  duplicate records  568
+  carpet ratio >= 0.98   -> pairs  617  properties  3230  duplicate records  570
+  carpet ratio >= 0.97   -> pairs  617  properties  3230  duplicate records  570
+  carpet ratio >= 0.95   -> pairs  617  properties  3230  duplicate records  570
+  carpet ratio >= 0.9    -> pairs  617  properties  3230  duplicate records  570
+  carpet ratio >= 0.8    -> pairs  617  properties  3230  duplicate records  570
+
+--- varying the distance tolerance, carpet fixed at 0.98 ---
+  within    25m -> pairs   31  properties  3769  duplicate records   31
+  within    50m -> pairs  331  properties  3477  duplicate records  323
+  within   100m -> pairs  617  properties  3230  duplicate records  570
+  within   200m -> pairs  621  properties  3230  duplicate records  570
+  within   500m -> pairs  621  properties  3230  duplicate records  570
+  within  1000m -> pairs  621  properties  3230  duplicate records  570
+  within  5000m -> pairs  622  properties  3229  duplicate records  571
+  within   anym -> pairs  622  properties  3229  duplicate records  571
+
+--- requiring the canonical apartment name to match as well ---
+  carpet >= 0.99, <=100m, same canonical name -> properties  3248  duplicate records  552
+  carpet >= 0.98, <=100m, same canonical name -> properties  3230  duplicate records  570
+  carpet >= 0.95, <=100m, same canonical name -> properties  3230  duplicate records  570
+
+==============================================================================
+D. The chosen rule, and what it groups
+==============================================================================
+  rule: identical on 10 structural fields, carpet area within 2% after
+        unit correction, and within 100m
+
+  distinct properties      : 3230
+  duplicate records        : 570
+  group size distribution  : [[1,2710],[2,471],[3,48],[4,1]]
+
+--- the pairs the rule rejects, sorted by how close they came ---
+  43 rejected. The nearest misses:
+    carpetRatio=0.9960 dist=4802m
+      DWE-3002648   dwelling    My Home Grand               carpet= 1919 price=  11560000
+      MAG-3000424   magichomes  Rohan Residency             carpet= 1927 price=  10140000
+    carpetRatio=0.9550 dist=1724m
+      MAG-3001564   magichomes  Assetz Terraces             carpet= 1735 price=  10200000
+      ZER-3001049   zerobroker  Casagrand Park              carpet= 1657 price=   9080000
+    carpetRatio=0.9465 dist=4259m
+      MAG-3002758   magichomes  Assetz Crest                carpet= 1361 price=  11410000
+      DWE-3003450   dwelling    Kolte Patil Serenity        carpet= 1438 price=   8220000
+    carpetRatio=0.9412 dist=4261m
+      MAG-3002758   magichomes  Assetz Crest                carpet= 1361 price=  11410000
+      DWE-3003070   dwelling    Kolte Patil Serenity        carpet= 1446 price=   8650000
+    carpetRatio=0.9341 dist=4257m
+      MAG-3002758   magichomes  Assetz Crest                carpet= 1361 price=  11410000
+      MAG-3003767   magichomes  Kolte Patil Serenity Phase  carpet= 1457 price=   8350000
+    carpetRatio=0.9328 dist=24271m
+      SQU-3003300   squarelane  Lodha Boulevard Apartments  carpet= 1265 price=  14550000
+      SQU-3001650   squarelane  Godrej Meadows              carpet= 1180 price=  17480000
+    carpetRatio=0.9321 dist=24213m
+      100-3002246   100acres    Lodha Boulevard             carpet= 1266 price=  15180000
+      SQU-3001650   squarelane  Godrej Meadows              carpet= 1180 price=  17480000
+    carpetRatio=0.9224 dist=5442m
+      SQU-3003125   squarelane  Kolte Patil Enclave         carpet= 1418 price=   7770000
+      SQU-3002816   squarelane  Puravankara Woods           carpet= 1308 price=   8230000
+    carpetRatio=0.9214 dist=11274m
+      SQU-3001870   squarelane  Adarsh Crest                carpet= 1450 price=   7570000
+      100-3000967   100acres    Nitesh Elite                carpet= 1336 price=  10460000
+    carpetRatio=0.9174 dist=7310m
+      SQU-3000705   squarelane  Assetz Crest                carpet= 1200 price=   8070000
+      SQU-3002816   squarelane  Puravankara Woods           carpet= 1308 price=   8230000
+    carpetRatio=0.8530 dist=17677m
+      100-3000382   100acres    Kolte Patil Enclave         carpet= 2234 price=  18930000
+      SQU-3001640   squarelane  Kolte Patil Crest           carpet= 2619 price=  22090000
+    carpetRatio=0.8463 dist=2561m
+      SQU-3003125   squarelane  Kolte Patil Enclave         carpet= 1418 price=   7770000
+      SQU-3000705   squarelane  Assetz Crest                carpet= 1200 price=   8070000
+
+--- largest groups the rule builds ---
+  groups of 3 or more: 49
+
+    group of 4:
+      DWE-3003737   dwelling    Godrej Residency              bhk=4 fl=17/17 carpet= 1607 price=  21470000 +912003005452
+      ZER-3003547   zerobroker  Godrej Residency Apartments   bhk=4 fl=17/17 carpet= 1601 price=  22530000 +912002642467
+      DWE-3002744   dwelling    Godrej Residency              bhk=4 fl=17/17 carpet= 1597 price=  21320000 +912002642467
+      DWE-3003380   dwelling    Godrej Residency              bhk=4 fl=17/17 carpet= 1583 price=  22330000 +912005321288
+
+    group of 3:
+      ZER-3003666   zerobroker  Puravankara  Willows          bhk=4 fl=13/23 carpet= 1598 price=  12470000 +912000225140
+      100-3002617   100acres    Puravankara Willows           bhk=4 fl=13/23 carpet= 1591 price=  12270000 +912007932197
+      SQU-3003389   squarelane  PURAVANKARA WILLOWS           bhk=4 fl=13/23 carpet= 1585 price=  13090000 +912005804662
+
+    group of 3:
+      100-3003483   100acres    The Prestige Habitat          bhk=3 fl=12/32 carpet= 1253 price=  11040000 +912005804662
+      ZER-3000249   zerobroker  Prestige Habitat              bhk=3 fl=12/32 carpet= 1255 price=  11630000 +912002760226
+      SQU-3003558   squarelane  Prestige  Habitat             bhk=3 fl=12/32 carpet= 1257 price=  12140000 +912002538612
+
+    group of 3:
+      100-3000988   100acres    Adarsh Heights                bhk=4 fl=8/23 carpet= 1566 price=  23480000 +912009875942
+      DWE-3003765   dwelling    Adarsh Heights                bhk=4 fl=8/23 carpet= 1552 price=  22150000 +912002380640
+      100-3003326   100acres    Adarsh Heights Phase 1        bhk=4 fl=8/23 carpet= 1571 price=  23770000 +912007932197
+
+    group of 3:
+      100-3000657   100acres    Adarsh Elite                  bhk=2 fl=9/17 carpet=  744 price=   7360000 +912007230432
+      MAG-3003464   magichomes  ADARSH ELITE                  bhk=2 fl=9/17 carpet=  743 price=   6930000 +912004884497
+      MAG-3003590   magichomes  Adarsh Elite Phase 1          bhk=2 fl=9/17 carpet=  732 price=   7640000 +912001875284
+
+==============================================================================
+E. Does the merge rule ever merge two genuinely different flats?
+==============================================================================
+  pairs the rule merges                        : 621
+  ... of which share EXACT coordinates         : 0   (want 0)
+  merged-pair distance quantiles (m)           : p1=13 p25=38 p50=49 p75=57 max=106
+  smallest carpet ratio among merged pairs     : 0.9817
+  coordinates carrying more than one record    : 247
+  ... records there sharing bedroom AND floor  : 0   (want 0)
+
+--- pairs whose canonical apartment_name still differs after canonicalisation ---
+  0 of 621
+
+==============================================================================
+F. Same test on rentals, for the findings list
+==============================================================================
+  rental candidate pairs: 2, passing the same duplicate rule: 0
+
+wrote notes\05-dupes.json

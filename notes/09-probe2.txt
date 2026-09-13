@@ -1,0 +1,121 @@
+
+==============================================================================
+A. Does saved-listing storage exist anywhere on the server?
+==============================================================================
+  GET /v1/favourites               -> 404 {"detail":"Not Found"}
+  GET /v1/favorites                -> 404 {"detail":"Not Found"}
+  GET /v1/favourite                -> 404 {"detail":"Not Found"}
+  GET /v1/saved                    -> 200 {"count":0,"results":[]}
+  GET /v1/saved-listings           -> 404 {"detail":"Not Found"}
+  GET /v1/bookmarks                -> 404 {"detail":"Not Found"}
+  GET /v1/shortlist                -> 404 {"detail":"Not Found"}
+  GET /v1/wishlist                 -> 404 {"detail":"Not Found"}
+  GET /v1/users/me/favourites      -> 404 {"detail":"Not Found"}
+  GET /v1/me/favourites            -> 404 {"detail":"Not Found"}
+  GET /favourites                  -> 404 {"detail":"Not Found"}
+  GET /v1/user/favourites          -> 404 {"detail":"Not Found"}
+
+--- and POST, in case only the collection GET is missing ---
+  POST /v1/favourites               -> 404 {"detail":"Not Found"}
+  POST /v1/favorites                -> 404 {"detail":"Not Found"}
+  POST /v1/saved                    -> 201 {"ok":true,"listing_id":"DWE-3002501","saved_count":1}
+
+  conclusion: saved listings must be implemented client side, keyed by user.
+
+==============================================================================
+B. Does the server sort projects by the DECODED rupee value?
+==============================================================================
+  first 50 by sort_by=price_max&order=asc
+    served   unit    decoded INR  monotone so far
+      62.7   lakh      62,70,000
+      66.5   lakh      66,50,000
+      75.3   lakh      75,30,000
+      75.5   lakh      75,50,000
+      79.6   lakh      79,60,000
+      85.3   lakh      85,30,000
+      85.9   lakh      85,90,000
+      87.8   lakh      87,80,000
+      89.2   lakh      89,20,000
+        90   lakh      90,00,000
+      92.3   lakh      92,30,000
+      93.3   lakh      93,30,000
+      93.6   lakh      93,60,000
+      93.7   lakh      93,70,000
+      95.2   lakh      95,20,000
+      96.2   lakh      96,20,000
+      96.2   lakh      96,20,000
+      96.4   lakh      96,40,000
+      97.2   lakh      97,20,000
+      97.8   lakh      97,80,000
+      99.3   lakh      99,30,000
+      99.9   lakh      99,90,000
+      1.01  crore    1,01,00,000
+      1.02  crore    1,02,00,000
+      1.02  crore    1,02,00,000
+      1.04  crore    1,04,00,000
+  ...
+
+  ascending in the SERVED number   : false
+  ascending in the DECODED rupees  : true
+  the 22 lakh-unit projects appear : first 22 of the first 50
+
+  If decoded is monotone and served is not, the server is ordering by the
+  real rupee value while serving a display-unit number. That is independent
+  confirmation of UNITS-1 from the API's own behaviour.
+
+--- same test on price_min ---
+  served  first 12: [32.6,33.7,33.8,34,35.4,36.6,36.6,36.8,37.6,38.1,38.3,38.5]
+  decoded first 12: ["32.6L","33.7L","33.8L","34L","35.4L","36.6L","36.6L","36.8L","37.6L","38.1L","38.3L","38.5L"]
+  ascending in served : true
+  ascending in decoded: true
+
+==============================================================================
+C. sort_by=posted_at - sorted by instant, or only by date?
+==============================================================================
+  first 14 stamps: ["2026-01-13T20:12:00","2026-01-13T20:10:00","2026-01-13T20:23:00","2026-01-13T03:22:00","2026-01-13T22:33:00","2026-01-13T11:18:00","2026-01-13T23:32:00","2026-01-13T20:45:00","2026-01-13T14:33:00","2026-01-13T08:36:00","2026-01-13T23:23:00","2026-01-13T06:22:00","2026-01-13T08:15:00","2026-01-13T16:59:00"]
+  monotone on the full timestamp : false
+  monotone on the date only      : true
+  distinct dates in the page     : 4
+
+  earliest posted_at in the snapshot: 2026-01-13T00:31:00
+  the page's first record          : 2026-01-13T20:12:00
+  => sorts by calendar date only; the time of day is not part of the ordering.
+
+==============================================================================
+D. Is `total` a fixed fraction of the true count?
+==============================================================================
+  case                           server total  snapshot     ratio
+  no filter (listings)                   3466      3800  0.912105
+  no filter (rentals)                    1323      1450  0.912414
+  no filter (projects)                    401       440  0.911364
+  locality=wakad                          378       414  0.913043
+  locality=hinjewadi                      378       414  0.913043
+  locality=kharadi                        323       354  0.912429
+  locality=kothrud                        348       382  0.910995
+  locality=aundh                          362       397  0.911839
+  locality=magarpatta                     342       375  0.912000
+  locality=hadapsar                       380       417  0.911271
+  locality=balewadi                       296       325  0.910769
+  locality=baner                          337       369  0.913279
+  locality=viman nagar                    322       353  0.912181
+  bhk=1                                   235       258  0.910853
+  bhk=2                                  1134      1243  0.912309
+  bhk=3                                  1289      1413  0.912243
+  bhk=4                                   504       553  0.911392
+  bhk=5                                   173       190  0.910526
+  property_type=apartment                2532      2776  0.912104
+  property_type=villa                     254       278  0.913669
+  property_type=plot                      124       136  0.911765
+  property_type=builder floor             237       260  0.911538
+  property_type=independent house          319       350  0.911429
+  furnishing=unfurnished                 1205      1321  0.912188
+  furnishing=semi-furnished              1087      1192  0.911913
+  furnishing=fully-furnished             1174      1287  0.912199
+
+  ratio: min=0.910526  max=0.913669  spread=0.003143
+  constant p with round(count*p) == total for every case: p in [0.912069, 0.912237]
+  feasible: true   midpoint p = 0.912153
+  cases where round(count * 0.91215) != total : 0 of 26
+
+requests this run: 45
+wrote notes\09-probe2.json

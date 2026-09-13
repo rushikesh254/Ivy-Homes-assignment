@@ -1,0 +1,347 @@
+{
+  "favourite_paths": [
+    {
+      "method": "GET",
+      "path": "/v1/favourites",
+      "status": 404,
+      "body": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/v1/favorites",
+      "status": 404,
+      "body": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/v1/favourite",
+      "status": 404,
+      "body": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/v1/saved",
+      "status": 200,
+      "body": {
+        "count": 0,
+        "results": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/v1/saved-listings",
+      "status": 404,
+      "body": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/v1/bookmarks",
+      "status": 404,
+      "body": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/v1/shortlist",
+      "status": 404,
+      "body": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/v1/wishlist",
+      "status": 404,
+      "body": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/v1/users/me/favourites",
+      "status": 404,
+      "body": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/v1/me/favourites",
+      "status": 404,
+      "body": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/favourites",
+      "status": 404,
+      "body": {
+        "detail": "Not Found"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/v1/user/favourites",
+      "status": 404,
+      "body": {
+        "detail": "Not Found"
+      }
+    }
+  ],
+  "project_sort": {
+    "served_monotone": false,
+    "decoded_monotone": true,
+    "first_50_served": [
+      62.7,
+      66.5,
+      75.3,
+      75.5,
+      79.6,
+      85.3,
+      85.9,
+      87.8,
+      89.2,
+      90,
+      92.3,
+      93.3,
+      93.6,
+      93.7,
+      95.2,
+      96.2,
+      96.2,
+      96.4,
+      97.2,
+      97.8,
+      99.3,
+      99.9,
+      1.01,
+      1.02,
+      1.02,
+      1.04,
+      1.04,
+      1.06,
+      1.06,
+      1.06,
+      1.08,
+      1.08,
+      1.1,
+      1.1,
+      1.11,
+      1.11,
+      1.11,
+      1.12,
+      1.13,
+      1.16,
+      1.16,
+      1.17,
+      1.17,
+      1.18,
+      1.18,
+      1.19,
+      1.19,
+      1.19,
+      1.19,
+      1.2
+    ],
+    "lakh_unit_in_first_50": 22
+  },
+  "project_sort_min": {
+    "served_monotone": true,
+    "decoded_monotone": true
+  },
+  "posted_at_sort": {
+    "fullMonotone": false,
+    "dateMonotone": true,
+    "first14": [
+      "2026-01-13T20:12:00",
+      "2026-01-13T20:10:00",
+      "2026-01-13T20:23:00",
+      "2026-01-13T03:22:00",
+      "2026-01-13T22:33:00",
+      "2026-01-13T11:18:00",
+      "2026-01-13T23:32:00",
+      "2026-01-13T20:45:00",
+      "2026-01-13T14:33:00",
+      "2026-01-13T08:36:00",
+      "2026-01-13T23:23:00",
+      "2026-01-13T06:22:00",
+      "2026-01-13T08:15:00",
+      "2026-01-13T16:59:00"
+    ]
+  },
+  "total_law": {
+    "p_lo": 0.912069,
+    "p_hi": 0.912237,
+    "p_mid": 0.912153,
+    "feasible": true,
+    "cases": [
+      {
+        "label": "no filter (listings)",
+        "total": 3466,
+        "count": 3800,
+        "ratio": 0.912105
+      },
+      {
+        "label": "no filter (rentals)",
+        "total": 1323,
+        "count": 1450,
+        "ratio": 0.912414
+      },
+      {
+        "label": "no filter (projects)",
+        "total": 401,
+        "count": 440,
+        "ratio": 0.911364
+      },
+      {
+        "label": "locality=wakad",
+        "total": 378,
+        "count": 414,
+        "ratio": 0.913043
+      },
+      {
+        "label": "locality=hinjewadi",
+        "total": 378,
+        "count": 414,
+        "ratio": 0.913043
+      },
+      {
+        "label": "locality=kharadi",
+        "total": 323,
+        "count": 354,
+        "ratio": 0.912429
+      },
+      {
+        "label": "locality=kothrud",
+        "total": 348,
+        "count": 382,
+        "ratio": 0.910995
+      },
+      {
+        "label": "locality=aundh",
+        "total": 362,
+        "count": 397,
+        "ratio": 0.911839
+      },
+      {
+        "label": "locality=magarpatta",
+        "total": 342,
+        "count": 375,
+        "ratio": 0.912
+      },
+      {
+        "label": "locality=hadapsar",
+        "total": 380,
+        "count": 417,
+        "ratio": 0.911271
+      },
+      {
+        "label": "locality=balewadi",
+        "total": 296,
+        "count": 325,
+        "ratio": 0.910769
+      },
+      {
+        "label": "locality=baner",
+        "total": 337,
+        "count": 369,
+        "ratio": 0.913279
+      },
+      {
+        "label": "locality=viman nagar",
+        "total": 322,
+        "count": 353,
+        "ratio": 0.912181
+      },
+      {
+        "label": "bhk=1",
+        "total": 235,
+        "count": 258,
+        "ratio": 0.910853
+      },
+      {
+        "label": "bhk=2",
+        "total": 1134,
+        "count": 1243,
+        "ratio": 0.912309
+      },
+      {
+        "label": "bhk=3",
+        "total": 1289,
+        "count": 1413,
+        "ratio": 0.912243
+      },
+      {
+        "label": "bhk=4",
+        "total": 504,
+        "count": 553,
+        "ratio": 0.911392
+      },
+      {
+        "label": "bhk=5",
+        "total": 173,
+        "count": 190,
+        "ratio": 0.910526
+      },
+      {
+        "label": "property_type=apartment",
+        "total": 2532,
+        "count": 2776,
+        "ratio": 0.912104
+      },
+      {
+        "label": "property_type=villa",
+        "total": 254,
+        "count": 278,
+        "ratio": 0.913669
+      },
+      {
+        "label": "property_type=plot",
+        "total": 124,
+        "count": 136,
+        "ratio": 0.911765
+      },
+      {
+        "label": "property_type=builder floor",
+        "total": 237,
+        "count": 260,
+        "ratio": 0.911538
+      },
+      {
+        "label": "property_type=independent house",
+        "total": 319,
+        "count": 350,
+        "ratio": 0.911429
+      },
+      {
+        "label": "furnishing=unfurnished",
+        "total": 1205,
+        "count": 1321,
+        "ratio": 0.912188
+      },
+      {
+        "label": "furnishing=semi-furnished",
+        "total": 1087,
+        "count": 1192,
+        "ratio": 0.911913
+      },
+      {
+        "label": "furnishing=fully-furnished",
+        "total": 1174,
+        "count": 1287,
+        "ratio": 0.912199
+      }
+    ],
+    "misfits": 0
+  }
+}

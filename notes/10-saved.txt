@@ -1,0 +1,57 @@
+
+==============================================================================
+A. Which request field does POST /v1/saved accept?
+==============================================================================
+  POST /v1/saved {"id": A}   (documented field name)   422  {"detail":[{"type":"missing","loc":["body","listing_id"],"msg":"Field required","input":{"id":"DWE-3002501"}}]}
+  GET  /v1/saved                                       200  {"count":0,"results":[]}
+  POST /v1/saved {"listing_id": B}                     201  {"ok":true,"listing_id":"SQU-3001712","saved_count":1}
+  GET  /v1/saved                                       200  {"count":1,"results":[{"listing_id":"SQU-3001712","listing_url":"https://www.squarelane.com/property/3001712","website":"squarelane","city_id":3,"apartment_name":"Shriram Park","locality":"hinjewadi",
+  POST /v1/saved {} (empty body)                       422  {"detail":[{"type":"missing","loc":["body","listing_id"],"msg":"Field required","input":{}}]}
+  POST /v1/saved {"id": "NOT-REAL"}                    422  {"detail":[{"type":"missing","loc":["body","listing_id"],"msg":"Field required","input":{"id":"NOT-REAL"}}]}
+  POST /v1/saved {"id": A} again (duplicate)           422  {"detail":[{"type":"missing","loc":["body","listing_id"],"msg":"Field required","input":{"id":"DWE-3002501"}}]}
+  GET  /v1/saved                                       200  {"count":1,"results":[{"listing_id":"SQU-3001712","listing_url":"https://www.squarelane.com/property/3001712","website":"squarelane","city_id":3,"apartment_name":"Shriram Park","locality":"hinjewadi",
+
+==============================================================================
+B. What does the collection actually contain?
+==============================================================================
+  documented for /v1/favourites: {"count": 3, "results": [ listing objects ]}
+  actual top-level keys        : ["count","results"]
+  results length              : 1
+  first entry type            : object
+  first entry keys            : ["listing_id","listing_url","website","city_id","apartment_name","locality","property_type","bedroom","bathroom","balcony","floor","total_floors","furnishing","facing_direction","covered_parking","price","carpet_area","super_built_up_area","latitude","longitude","posted_by","posted_by_name","posted_by_contact","project_id","is_verified","description","posted_at","is_live"]
+  is it a full listing object : true
+  full first entry            : {"listing_id":"SQU-3001712","listing_url":"https://www.squarelane.com/property/3001712","website":"squarelane","city_id":3,"apartment_name":"Shriram Park","locality":"hinjewadi","property_type":"villa","bedroom":2,"bathroom":2,"balcony":2,"floor":19,"total_floors":23,"furnishing":"unfurnished","facing_direction":"north-west","covered_parking":1,"price":7210000,"carpet_area":812,"super_built_up_area":1094,"latitude":1
+
+==============================================================================
+C. Removing
+==============================================================================
+  DELETE /v1/saved/DWE-3002501                         404  {"detail":"not in your saved list"}
+  GET  /v1/saved                                       200  {"count":1,"results":[{"listing_id":"SQU-3001712","listing_url":"https://www.squarelane.com/property/3001712","website":"squarelane","city_id":3,"apartment_name":"Shriram Park","locality":"hinjewadi",
+  DELETE the same id again                             404  {"detail":"not in your saved list"}
+  DELETE an id that was never saved                    404  {"detail":"not in your saved list"}
+  DELETE a nonexistent listing id                      404  {"detail":"not in your saved list"}
+
+--- does the documented DELETE path work? ---
+  DELETE /v1/favourites/SQU-3001712                    404  {"detail":"Not Found"}
+
+==============================================================================
+D. Is the store per user, and does it outlast a re-login?
+==============================================================================
+  demo1 saved: ["SQU-3001712"]
+  demo2 saved: []
+  isolated per user: true
+
+--- a brand new login for demo1 - is the store still there? ---
+  demo1 after a fresh login: ["SQU-3001712"]
+  survives re-login: true
+
+--- without a bearer token? ---
+  GET /v1/saved with no token                          401  {"detail":"missing bearer token - log in at POST /auth/login first"}
+
+--- with a token but no api key? ---
+  GET /v1/saved with token, no X-API-Key               401  {"detail":"missing X-API-Key header"}
+
+  cleaned up: demo1 {"count":0,"results":[]}, demo2 {"count":0,"results":[]}
+
+requests this run: 34
+wrote notes\10-saved.json

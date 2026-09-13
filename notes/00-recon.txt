@@ -1,0 +1,364 @@
+base url : https://solve.ivy.homes
+api key  : IVY26-...7658 (len 18)
+
+==========================================================================
+1. GET /health  (unauthenticated)
+==========================================================================
+status 200
+{
+  "status": "ok",
+  "server_time": "2026-09-13T16:32:09.196479+05:30",
+  "timezone": "Asia/Kolkata",
+  "reference_date": "2026-09-10T00:00:00+05:30"
+}
+
+local clock at time of call: 2026-09-13T11:02:09.022Z
+
+==========================================================================
+2. Key transport: header vs query parameter
+==========================================================================
+no key at all       -> 401  {
+  "detail": "missing X-API-Key header"
+}
+key as ?api_key=    -> 401  {
+  "detail": "send your key in the X-API-Key request header, not as a query parameter"
+}
+bogus key in header -> 401  {
+  "detail": "unknown api key"
+}
+valid key, no token -> 401  {
+  "detail": "missing bearer token - log in at POST /auth/login first"
+}
+
+==========================================================================
+3. POST /auth/login -> real response shape and real token lifetime
+==========================================================================
+[session] token good for 899s
+{
+  "access_token": "eyJleHAiOjE3ODky...(len 179)",
+  "refresh_token": "eyJleHAiOjE3ODk5...(len 180)",
+  "token_type": "Bearer",
+  "expires_in": 900,
+  "refresh_url": "/auth/refresh",
+  "user": {
+    "email": "demo1@ivy.homes"
+  }
+}
+
+access token claims : {
+  "exp": 1789298231,
+  "iat": 1789297331,
+  "key": "IVY26-7D1052B37658",
+  "sub": "demo1@ivy.homes",
+  "typ": "access"
+}
+refresh token claims: {
+  "exp": 1789902131,
+  "iat": 1789297331,
+  "key": "IVY26-7D1052B37658",
+  "sub": "demo1@ivy.homes",
+  "typ": "refresh"
+}
+
+access  exp-iat = 900s (15 min)
+refresh exp-iat = 604800s (7.0 days)
+
+documented: token="token", expires_in=86400, "There is no refresh flow."
+
+==========================================================================
+4. Does the undocumented /auth/refresh work?
+==========================================================================
+[session] token good for 899s
+refresh calls that succeeded: 1
+access token changed: false
+new token good for: 899s
+
+==========================================================================
+5. GET /v1/listings?limit=1 -> real envelope + real field names
+==========================================================================
+status 200
+
+-- envelope (arrays collapsed) --
+{
+  "limit": 1,
+  "offset": 0,
+  "count": 1,
+  "total": 3466,
+  "has_more": true,
+  "results": "<array len=1>"
+}
+
+-- records returned: 1 --
+
+-- field names on record[0] --
+[
+  "listing_id",
+  "listing_url",
+  "website",
+  "city_id",
+  "apartment_name",
+  "locality",
+  "property_type",
+  "bedroom",
+  "bathroom",
+  "balcony",
+  "floor",
+  "total_floors",
+  "furnishing",
+  "facing_direction",
+  "covered_parking",
+  "price",
+  "carpet_area",
+  "super_built_up_area",
+  "latitude",
+  "longitude",
+  "posted_by",
+  "posted_by_name",
+  "posted_by_contact",
+  "project_id",
+  "is_verified",
+  "description",
+  "posted_at",
+  "is_live"
+]
+
+-- record[0] in full --
+{
+  "listing_id": "DWE-3002501",
+  "listing_url": "https://www.dwelling.com/property/3002501",
+  "website": "dwelling",
+  "city_id": 3,
+  "apartment_name": "Puravankara Sanctuary",
+  "locality": "wakad",
+  "property_type": "apartment",
+  "bedroom": 1,
+  "bathroom": 1,
+  "balcony": 2,
+  "floor": 21,
+  "total_floors": 30,
+  "furnishing": "unfurnished",
+  "facing_direction": "west",
+  "covered_parking": 1,
+  "price": 4140000,
+  "carpet_area": 493,
+  "super_built_up_area": 652,
+  "latitude": 18.54624,
+  "longitude": 73.70896,
+  "posted_by": "builder",
+  "posted_by_name": "Ananya Iyer",
+  "posted_by_contact": "+912004122182",
+  "project_id": "P30381",
+  "is_verified": true,
+  "description": "Spacious 1 BHK apartment in Puravankara Sanctuary, Wakad. Unfurnished, west-facing. Close to the metro; near schools and hospitals.",
+  "posted_at": "2026-04-30T14:57:00",
+  "is_live": true
+}
+
+-- response headers --
+{
+  "alt-svc": "h3=\":443\"; ma=2592000",
+  "content-encoding": "gzip",
+  "content-length": "528",
+  "content-type": "application/json",
+  "date": "Sun, 13 Sep 2026 11:02:11 GMT",
+  "vary": "Accept-Encoding"
+}
+
+==========================================================================
+6. GET /v1/listings with no params -> real default limit
+==========================================================================
+status 200, records returned: 20  (docs claim default limit 20)
+{
+  "limit": 20,
+  "offset": 0,
+  "count": 20,
+  "total": 3466,
+  "has_more": true,
+  "results": "<array len=20>"
+}
+
+==========================================================================
+7. Pagination: does `page` move the window, or only `offset`?
+==========================================================================
+limit=1          -> DWE-3002501
+limit=1&page=2   -> DWE-3002501   *** SAME as baseline: `page` is accepted and IGNORED ***
+limit=1&offset=1 -> SQU-3001712   *** offset moved the window ***
+
+baseline envelope : {
+  "limit": 1,
+  "offset": 0,
+  "count": 1,
+  "total": 3466,
+  "has_more": true,
+  "results": "<array len=1>"
+}
+page=2 envelope   : {
+  "limit": 1,
+  "offset": 0,
+  "count": 1,
+  "total": 3466,
+  "has_more": true,
+  "results": "<array len=1>"
+}
+offset=1 envelope : {
+  "limit": 1,
+  "offset": 1,
+  "count": 1,
+  "total": 3466,
+  "has_more": true,
+  "results": "<array len=1>"
+}
+
+==========================================================================
+8. Limit ceiling: what does the server actually allow?
+==========================================================================
+limit=200    -> 200  returned=50   echoed={"limit":50,"offset":0,"count":50,"total":3466,"has_more":true}
+limit=201    -> 200  returned=50   echoed={"limit":50,"offset":0,"count":50,"total":3466,"has_more":true}
+limit=500    -> 200  returned=50   echoed={"limit":50,"offset":0,"count":50,"total":3466,"has_more":true}
+limit=99999  -> 200  returned=50   echoed={"limit":50,"offset":0,"count":50,"total":3466,"has_more":true}
+limit=0      -> 422  returned=1    echoed={}
+limit=-1     -> 422  returned=1    echoed={}
+
+==========================================================================
+9. Quick peek at the other collections
+==========================================================================
+
+/v1/rentals -> 200
+envelope   : {
+  "limit": 1,
+  "offset": 0,
+  "count": 1,
+  "total": 1323,
+  "has_more": true,
+  "results": "<array len=1>"
+}
+field names: [
+  "listing_id",
+  "listing_url",
+  "website",
+  "city_id",
+  "title",
+  "apartment_name",
+  "locality",
+  "property_type",
+  "bedroom",
+  "bathroom",
+  "floor",
+  "total_floors",
+  "furnishing",
+  "facing_direction",
+  "price",
+  "deposit",
+  "maintenance",
+  "carpet_area",
+  "super_builtup_area",
+  "latitude",
+  "longitude",
+  "posted_by",
+  "posted_by_name",
+  "posted_by_contact",
+  "description",
+  "posted_at",
+  "is_live"
+]
+record[0]  : {
+  "listing_id": "R3000001",
+  "listing_url": "https://www.dwelling.com/rent/3000001",
+  "website": "dwelling",
+  "city_id": 3,
+  "title": "2 BHK for rent in Viman Nagar",
+  "apartment_name": "Nitesh Boulevard",
+  "locality": "kothrud",
+  "property_type": "builder floor",
+  "bedroom": 2,
+  "bathroom": 2,
+  "floor": 0,
+  "total_floors": 11,
+  "furnishing": "fully-furnished",
+  "facing_direction": "south-east",
+  "price": 31600,
+  "deposit": 63200,
+  "maintenance": 2500,
+  "carpet_area": 827,
+  "super_builtup_area": 1113,
+  "latitude": 18.62664,
+  "longitude": 73.76212,
+  "posted_by": "agent",
+  "posted_by_name": "Shreya Iyer",
+  "posted_by_contact": "+912008723646",
+  "description": "2 BHK, fully-furnished, in Nitesh Boulevard, Kothrud. Gated society with security.",
+  "posted_at": "2026-09-04T00:21:00Z",
+  "is_live": true
+}
+
+/v1/projects -> 200
+envelope   : {
+  "limit": 1,
+  "offset": 0,
+  "count": 1,
+  "total": 401,
+  "has_more": true,
+  "results": "<array len=1>"
+}
+field names: [
+  "project_id",
+  "project_url",
+  "city_id",
+  "apartment_name",
+  "developer_name",
+  "locality",
+  "project_status",
+  "total_units",
+  "total_towers",
+  "total_floors",
+  "launch_date",
+  "possession_date",
+  "rera_number",
+  "min_area_sqft",
+  "max_area_sqft",
+  "amenities",
+  "latitude",
+  "longitude",
+  "total_listings",
+  "price_min",
+  "price_max"
+]
+record[0]  : {
+  "project_id": "P30001",
+  "project_url": "https://www.ivy.homes/projects/30001",
+  "city_id": 3,
+  "apartment_name": "Brigade Grand",
+  "developer_name": "Brigade",
+  "locality": "kharadi",
+  "project_status": "new launch",
+  "total_units": 691,
+  "total_towers": 8,
+  "total_floors": 32,
+  "launch_date": "2024-05-24",
+  "possession_date": "2028-06-29",
+  "rera_number": "PRM/KA/RERA/5327/246",
+  "min_area_sqft": 894,
+  "max_area_sqft": 3061,
+  "amenities": [
+    "pool",
+    "security",
+    "gym",
+    "clubhouse"
+  ],
+  "latitude": 18.54248,
+  "longitude": 74.01244,
+  "total_listings": 4,
+  "price_min": 80,
+  "price_max": 3.22
+}
+
+/v1/analytics/summary -> 404
+{
+  "detail": "Not Found"
+}
+
+==========================================================================
+summary
+==========================================================================
+total requests made: 21
+wrote notes\00-recon.json

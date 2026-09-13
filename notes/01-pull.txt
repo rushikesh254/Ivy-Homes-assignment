@@ -1,0 +1,164 @@
+
+==========================================================================
+pulling /v1/listings
+==========================================================================
+[session] token good for 899s
+
+  offset     0  +50 new    1%  has_more=true   
+  offset    50  +50 new    3%  has_more=true   
+  offset   100  +50 new    4%  has_more=true   
+  offset   150  +50 new    6%  has_more=true   
+  offset   200  +50 new    7%  has_more=true   
+  offset   250  +50 new    9%  has_more=true   
+  offset   300  +50 new   10%  has_more=true   
+  offset   350  +50 new   12%  has_more=true   
+  offset   400  +50 new   13%  has_more=true   
+  offset   450  +50 new   14%  has_more=true   
+  offset   500  +50 new   16%  has_more=true   
+  offset   550  +50 new   17%  has_more=true   
+  offset   600  +50 new   19%  has_more=true   
+  offset   650  +50 new   20%  has_more=true   
+  offset   700  +50 new   22%  has_more=true   
+  offset   750  +50 new   23%  has_more=true   
+  offset   800  +50 new   25%  has_more=true   
+  offset   850  +50 new   26%  has_more=true   
+  offset   900  +50 new   27%  has_more=true   
+  offset   950  +50 new   29%  has_more=true   
+  offset  1000  +50 new   30%  has_more=true   
+  offset  1050  +50 new   32%  has_more=true   
+  offset  1100  +50 new   33%  has_more=true   
+  offset  1150  +50 new   35%  has_more=true   
+  offset  1200  +50 new   36%  has_more=true   
+  offset  1250  +50 new   38%  has_more=true   
+  offset  1300  +50 new   39%  has_more=true   
+  offset  1350  +50 new   40%  has_more=true   
+  offset  1400  +50 new   42%  has_more=true   
+  offset  1450  +50 new   43%  has_more=true   
+  offset  1500  +50 new   45%  has_more=true   
+  offset  1550  +50 new   46%  has_more=true   
+  offset  1600  +50 new   48%  has_more=true   
+  offset  1650  +50 new   49%  has_more=true   
+  offset  1700  +50 new   50%  has_more=true   
+  offset  1750  +50 new   52%  has_more=true   
+  offset  1800  +50 new   53%  has_more=true   
+  offset  1850  +50 new   55%  has_more=true   
+  offset  1900  +50 new   56%  has_more=true   
+  offset  1950  +50 new   58%  has_more=true   
+  offset  2000  +50 new   59%  has_more=true   
+  offset  2050  +50 new   61%  has_more=true   
+  offset  2100  +50 new   62%  has_more=true   
+  offset  2150  +50 new   63%  has_more=true   
+  offset  2200  +50 new   65%  has_more=true   
+  offset  2250  +50 new   66%  has_more=true   
+  offset  2300  +50 new   68%  has_more=true   
+  offset  2350  +50 new   69%  has_more=true   
+  offset  2400  +50 new   71%  has_more=true   
+  offset  2450  +50 new   72%  has_more=true   
+  offset  2500  +50 new   74%  has_more=true   
+  offset  2550  +50 new   75%  has_more=true   
+  offset  2600  +50 new   76%  has_more=true   
+  offset  2650  +50 new   78%  has_more=true   
+  offset  2700  +50 new   79%  has_more=true   
+  offset  2750  +50 new   81%  has_more=true   
+  offset  2800  +50 new   82%  has_more=true   
+  offset  2850  +50 new   84%  has_more=true   
+  offset  2900  +50 new   85%  has_more=true   
+  offset  2950  +50 new   87%  has_more=true   
+  offset  3000  +50 new   88%  has_more=true   
+  offset  3050  +50 new   89%  has_more=true   
+  offset  3100  +50 new   91%  has_more=true   
+  offset  3150  +50 new   92%  has_more=true   
+  offset  3200  +50 new   94%  has_more=true   
+  offset  3250  +50 new   95%  has_more=true   
+  offset  3300  +50 new   97%  has_more=true   
+  offset  3350  +50 new   98%  has_more=true   
+  offset  3400  +50 new  100%  has_more=true   
+  offset  3450  +50 new  101%  has_more=true   
+  offset  3500  +50 new  102%  has_more=true   
+  offset  3550  +50 new  104%  has_more=true   
+  offset  3600  +50 new  105%  has_more=true   
+  offset  3650  +50 new  107%  has_more=true   
+  offset  3700  +50 new  108%  has_more=true   
+  offset  3750  +50 new  110%  has_more=false   
+  advertised total : 3466
+  records fetched  : 3800
+  unique listing_id: 3800
+  pages            : 76  in 8.3s
+  no repeated listing_id values
+  *** MISMATCH: advertised total 3466 != 3800 fetched ***
+  pager self-checks all clean
+  ordering stable on re-fetch: yes
+
+==========================================================================
+pulling /v1/rentals
+==========================================================================
+
+  offset     0  +50 new    4%  has_more=true   
+  offset    50  +50 new    8%  has_more=true   
+  offset   100  +50 new   11%  has_more=true   
+  offset   150  +50 new   15%  has_more=true   
+  offset   200  +50 new   19%  has_more=true   
+  offset   250  +50 new   23%  has_more=true   
+  offset   300  +50 new   26%  has_more=true   
+  offset   350  +50 new   30%  has_more=true   
+  offset   400  +50 new   34%  has_more=true   
+  offset   450  +50 new   38%  has_more=true   
+  offset   500  +50 new   42%  has_more=true   
+  offset   550  +50 new   45%  has_more=true   
+  offset   600  +50 new   49%  has_more=true   
+  offset   650  +50 new   53%  has_more=true   
+  offset   700  +50 new   57%  has_more=true   
+  offset   750  +50 new   60%  has_more=true   
+  offset   800  +50 new   64%  has_more=true   
+  offset   850  +50 new   68%  has_more=true   
+  offset   900  +50 new   72%  has_more=true   
+  offset   950  +50 new   76%  has_more=true   
+  offset  1000  +50 new   79%  has_more=true   
+  offset  1050  +50 new   83%  has_more=true   
+  offset  1100  +50 new   87%  has_more=true   
+  offset  1150  +50 new   91%  has_more=true   
+  offset  1200  +50 new   94%  has_more=true   
+  offset  1250  +50 new   98%  has_more=true   
+  offset  1300  +50 new  102%  has_more=true   
+  offset  1350  +50 new  106%  has_more=true   
+  offset  1400  +50 new  110%  has_more=false   
+  advertised total : 1323
+  records fetched  : 1450
+  unique listing_id: 1450
+  pages            : 29  in 2.8s
+  no repeated listing_id values
+  *** MISMATCH: advertised total 1323 != 1450 fetched ***
+  pager self-checks all clean
+  ordering stable on re-fetch: yes
+
+==========================================================================
+pulling /v1/projects
+==========================================================================
+
+  offset     0  +50 new   12%  has_more=true   
+  offset    50  +50 new   25%  has_more=true   
+  offset   100  +50 new   37%  has_more=true   
+  offset   150  +50 new   50%  has_more=true   
+  offset   200  +50 new   62%  has_more=true   
+  offset   250  +50 new   75%  has_more=true   
+  offset   300  +50 new   87%  has_more=true   
+  offset   350  +50 new  100%  has_more=true   
+  offset   400  +40 new  110%  has_more=false   
+  advertised total : 401
+  records fetched  : 440
+  unique project_id: 440
+  pages            : 9  in 0.7s
+  no repeated project_id values
+  *** MISMATCH: advertised total 401 != 440 fetched ***
+  pager self-checks all clean
+  ordering stable on re-fetch: yes
+
+==========================================================================
+summary
+==========================================================================
+listings  advertised= 3466  fetched= 3800  unique= 3800  repeats=  0
+rentals   advertised= 1323  fetched= 1450  unique= 1450  repeats=  0
+projects  advertised=  401  fetched=  440  unique=  440  repeats=  0
+
+requests this run: 121  (token refreshes: 0)
+wrote data/raw/{listings,rentals,projects}.json + _manifest.json

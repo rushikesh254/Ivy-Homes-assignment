@@ -1,0 +1,220 @@
+REFERENCE = 2026-09-09T18:30:00.000Z = 2026-09-10 00:00 IST
+
+==============================================================================
+A. The raw strings at the top of each collection
+==============================================================================
+
+--- listings: 15 largest posted_at strings, as served ---
+  SQU-3003016   2027-05-03T09:24:00   live=true  price=  29440000
+  SQU-3001957   2027-03-22T23:15:00   live=true  price=  16530000
+  100-3000685   2027-03-16T19:13:00   live=true  price=  12690000
+  100-3002582   2027-02-08T15:55:00   live=false price=  10550000
+  100-3000532   2027-01-01T06:39:00   live=true  price=  13440000
+  DWE-3000032   2026-11-21T16:38:00   live=false price=  10260000
+  DWE-3000830   2026-10-09T13:34:00   live=false price=   9900000
+  SQU-3001101   2026-09-09T23:54:00   live=true  price=  20360000
+  SQU-3000284   2026-09-09T23:36:00   live=true  price=  23170000
+  SQU-3000354   2026-09-09T23:25:00   live=true  price=  12380000
+  ZER-3001366   2026-09-09T23:18:00   live=true  price=   7590000
+  100-3000261   2026-09-09T23:11:00   live=true  price=  17040000
+  100-3000097   2026-09-09T23:02:00   live=true  price=   3560000
+  MAG-3002387   2026-09-09T23:00:00   live=true  price=  12930000
+  MAG-3000861   2026-09-09T22:51:00   live=true  price=  10330000
+
+--- listings: 5 smallest ---
+  100-3002274   2026-01-13T06:55:00
+  SQU-3003427   2026-01-13T06:22:00
+  SQU-3001644   2026-01-13T05:09:00
+  100-3000291   2026-01-13T03:22:00
+  ZER-3003624   2026-01-13T00:31:00
+
+--- rentals: 10 largest posted_at strings, as served ---
+  R3001395     2026-09-09T17:03:00Z
+  R3000242     2026-09-09T16:08:00Z
+  R3000114     2026-09-09T13:43:00Z
+  R3001193     2026-09-09T12:10:00Z
+  R3000919     2026-09-09T11:10:00Z
+  R3000790     2026-09-09T07:23:00Z
+  R3000674     2026-09-09T06:35:00Z
+  R3000182     2026-09-08T23:49:00Z
+  R3000389     2026-09-08T23:30:00Z
+  R3001293     2026-09-08T23:01:00Z
+
+--- rentals: 3 smallest ---
+  R3000237     2026-05-13T05:22:00Z
+  R3000718     2026-05-12T20:51:00Z
+  R3001145     2026-05-12T18:36:00Z
+
+==============================================================================
+B. Which records sit beyond REFERENCE, and by how far?
+==============================================================================
+
+--- listings, naive read as IST ---
+  7 records at or after REFERENCE
+    DWE-3000830   2026-10-09T13:34:00  -> 2026-10-09 13:34 IST  (+29.57 days past REFERENCE)
+    DWE-3000032   2026-11-21T16:38:00  -> 2026-11-21 16:38 IST  (+72.69 days past REFERENCE)
+    100-3000532   2027-01-01T06:39:00  -> 2027-01-01 06:39 IST  (+113.28 days past REFERENCE)
+    100-3002582   2027-02-08T15:55:00  -> 2027-02-08 15:55 IST  (+151.66 days past REFERENCE)
+    100-3000685   2027-03-16T19:13:00  -> 2027-03-16 19:13 IST  (+187.80 days past REFERENCE)
+    SQU-3001957   2027-03-22T23:15:00  -> 2027-03-22 23:15 IST  (+193.97 days past REFERENCE)
+    SQU-3003016   2027-05-03T09:24:00  -> 2027-05-03 09:24 IST  (+235.39 days past REFERENCE)
+
+--- listings, naive read as UTC ---
+  25 records at or after REFERENCE
+    ZER-3001955   2026-09-09T19:19:00  -> 2026-09-10 00:49 IST  (+0.03 days past REFERENCE)
+    ZER-3000961   2026-09-09T19:54:00  -> 2026-09-10 01:24 IST  (+0.06 days past REFERENCE)
+    SQU-3001333   2026-09-09T20:04:00  -> 2026-09-10 01:34 IST  (+0.07 days past REFERENCE)
+    SQU-3003526   2026-09-09T21:40:00  -> 2026-09-10 03:10 IST  (+0.13 days past REFERENCE)
+    SQU-3002164   2026-09-09T21:57:00  -> 2026-09-10 03:27 IST  (+0.14 days past REFERENCE)
+    SQU-3002572   2026-09-09T22:03:00  -> 2026-09-10 03:33 IST  (+0.15 days past REFERENCE)
+    SQU-3001579   2026-09-09T22:07:00  -> 2026-09-10 03:37 IST  (+0.15 days past REFERENCE)
+    ZER-3000784   2026-09-09T22:23:00  -> 2026-09-10 03:53 IST  (+0.16 days past REFERENCE)
+    DWE-3000724   2026-09-09T22:23:00  -> 2026-09-10 03:53 IST  (+0.16 days past REFERENCE)
+    100-3002074   2026-09-09T22:41:00  -> 2026-09-10 04:11 IST  (+0.17 days past REFERENCE)
+    MAG-3000861   2026-09-09T22:51:00  -> 2026-09-10 04:21 IST  (+0.18 days past REFERENCE)
+    MAG-3002387   2026-09-09T23:00:00  -> 2026-09-10 04:30 IST  (+0.19 days past REFERENCE)
+    100-3000097   2026-09-09T23:02:00  -> 2026-09-10 04:32 IST  (+0.19 days past REFERENCE)
+    100-3000261   2026-09-09T23:11:00  -> 2026-09-10 04:41 IST  (+0.20 days past REFERENCE)
+    ZER-3001366   2026-09-09T23:18:00  -> 2026-09-10 04:48 IST  (+0.20 days past REFERENCE)
+    SQU-3000354   2026-09-09T23:25:00  -> 2026-09-10 04:55 IST  (+0.20 days past REFERENCE)
+    SQU-3000284   2026-09-09T23:36:00  -> 2026-09-10 05:06 IST  (+0.21 days past REFERENCE)
+    SQU-3001101   2026-09-09T23:54:00  -> 2026-09-10 05:24 IST  (+0.23 days past REFERENCE)
+    DWE-3000830   2026-10-09T13:34:00  -> 2026-10-09 19:04 IST  (+29.79 days past REFERENCE)
+    DWE-3000032   2026-11-21T16:38:00  -> 2026-11-21 22:08 IST  (+72.92 days past REFERENCE)
+    100-3000532   2027-01-01T06:39:00  -> 2027-01-01 12:09 IST  (+113.51 days past REFERENCE)
+    100-3002582   2027-02-08T15:55:00  -> 2027-02-08 21:25 IST  (+151.89 days past REFERENCE)
+    100-3000685   2027-03-16T19:13:00  -> 2027-03-17 00:43 IST  (+188.03 days past REFERENCE)
+    SQU-3001957   2027-03-22T23:15:00  -> 2027-03-23 04:45 IST  (+194.20 days past REFERENCE)
+    SQU-3003016   2027-05-03T09:24:00  -> 2027-05-03 14:54 IST  (+235.62 days past REFERENCE)
+
+==============================================================================
+C. Density in the final hours before REFERENCE
+==============================================================================
+
+--- listings, naive read as IST ---
+    48h to 45h before REFERENCE :   1 #
+    45h to 42h before REFERENCE :   1 #
+    42h to 39h before REFERENCE :   2 ##
+    39h to 36h before REFERENCE :   0 
+    36h to 33h before REFERENCE :   4 ####
+    33h to 30h before REFERENCE :   3 ###
+    30h to 27h before REFERENCE :   1 #
+    27h to 24h before REFERENCE :   5 #####
+    24h to 21h before REFERENCE :   0 
+    21h to 18h before REFERENCE :   2 ##
+    18h to 15h before REFERENCE :   1 #
+    15h to 12h before REFERENCE :   2 ##
+    12h to  9h before REFERENCE :   3 ###
+     9h to  6h before REFERENCE :   3 ###
+     6h to  3h before REFERENCE :   3 ###
+     3h to  0h before REFERENCE :  15 ###############
+    at or after REFERENCE                :   7 #######
+
+--- listings, naive read as UTC ---
+    48h to 45h before REFERENCE :   1 #
+    45h to 42h before REFERENCE :   3 ###
+    42h to 39h before REFERENCE :   1 #
+    39h to 36h before REFERENCE :   1 #
+    36h to 33h before REFERENCE :   2 ##
+    33h to 30h before REFERENCE :   0 
+    30h to 27h before REFERENCE :   6 ######
+    27h to 24h before REFERENCE :   1 #
+    24h to 21h before REFERENCE :   1 #
+    21h to 18h before REFERENCE :   5 #####
+    18h to 15h before REFERENCE :   0 
+    15h to 12h before REFERENCE :   2 ##
+    12h to  9h before REFERENCE :   1 #
+     9h to  6h before REFERENCE :   3 ###
+     6h to  3h before REFERENCE :   3 ###
+     3h to  0h before REFERENCE :   2 ##
+    at or after REFERENCE                :  25 #########################
+
+--- rentals, explicit Z taken at face value ---
+    48h to 45h before REFERENCE :   1 #
+    45h to 42h before REFERENCE :   0 
+    42h to 39h before REFERENCE :   2 ##
+    39h to 36h before REFERENCE :   2 ##
+    36h to 33h before REFERENCE :   2 ##
+    33h to 30h before REFERENCE :   4 ####
+    30h to 27h before REFERENCE :   1 #
+    27h to 24h before REFERENCE :   0 
+    24h to 21h before REFERENCE :   1 #
+    21h to 18h before REFERENCE :   4 ####
+    18h to 15h before REFERENCE :   0 
+    15h to 12h before REFERENCE :   0 
+    12h to  9h before REFERENCE :   2 ##
+     9h to  6h before REFERENCE :   2 ##
+     6h to  3h before REFERENCE :   1 #
+     3h to  0h before REFERENCE :   2 ##
+    at or after REFERENCE                :   0 
+
+==============================================================================
+D. Extreme-value check: where should the largest sample fall?
+==============================================================================
+  excluding 7 listings that are beyond REFERENCE under the IST reading
+  listings, naive as IST             n=3793  span=240.0d  predicted gap to REFERENCE=1.52h  observed=0.10h  ratio=0.07
+  listings, naive as UTC             n=3793  span=239.7d  predicted gap to REFERENCE=1.52h  observed=-5.40h  ratio=-3.56
+  rentals, Z at face value           n=1450  span=120.0d  predicted gap to REFERENCE=1.98h  observed=1.45h  ratio=0.73
+  rentals, Z relabelled as IST       n=1450  span=120.2d  predicted gap to REFERENCE=1.99h  observed=6.95h  ratio=3.49
+
+==============================================================================
+E. Question 8 under each reading
+==============================================================================
+  window = [2026-09-03 00:00 IST, 2026-09-10 00:00 IST)
+         = [2026-09-02T18:30:00.000Z, 2026-09-09T18:30:00.000Z)
+
+  naive read as IST -> 128 records
+      2026-09-03   12 ############
+      2026-09-04   20 ####################
+      2026-09-05   15 ###############
+      2026-09-06   18 ##################
+      2026-09-07   17 #################
+      2026-09-08   17 #################
+      2026-09-09   29 #############################
+
+  naive read as UTC -> 115 records
+      2026-09-03   15 ###############
+      2026-09-04   15 ###############
+      2026-09-05   18 ##################
+      2026-09-06   17 #################
+      2026-09-07   18 ##################
+      2026-09-08   15 ###############
+      2026-09-09   17 #################
+
+--- the records the two readings disagree about ---
+  in the window only under IST: 18
+    ZER-3000961   2026-09-09T19:54:00
+    SQU-3000354   2026-09-09T23:25:00
+    ZER-3001366   2026-09-09T23:18:00
+    SQU-3002164   2026-09-09T21:57:00
+    SQU-3003526   2026-09-09T21:40:00
+    MAG-3002387   2026-09-09T23:00:00
+    ZER-3000784   2026-09-09T22:23:00
+    100-3000097   2026-09-09T23:02:00
+    SQU-3001579   2026-09-09T22:07:00
+    100-3000261   2026-09-09T23:11:00
+    MAG-3000861   2026-09-09T22:51:00
+    DWE-3000724   2026-09-09T22:23:00
+    SQU-3002572   2026-09-09T22:03:00
+    SQU-3001333   2026-09-09T20:04:00
+    SQU-3000284   2026-09-09T23:36:00
+    SQU-3001101   2026-09-09T23:54:00
+    ZER-3001955   2026-09-09T19:19:00
+    100-3002074   2026-09-09T22:41:00
+  in the window only under UTC: 5
+    MAG-3002847   2026-09-02T19:05:00
+    100-3002693   2026-09-02T20:39:00
+    SQU-3000612   2026-09-02T19:27:00
+    DWE-3001570   2026-09-02T20:46:00
+    DWE-3001213   2026-09-02T21:43:00
+
+==============================================================================
+F. Do the project dates line up with the listing dates?
+==============================================================================
+  launch_date shapes    : [["date-only",440]]
+  possession_date shapes: [["date-only",440]]
+  launch_date     range : 2020-02-14 .. 2026-02-20
+  possession_date range : 2022-06-19 .. 2031-09-17
+  launches after REFERENCE date 2026-09-10: 0
+
+wrote notes\04-time.json

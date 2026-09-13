@@ -1,0 +1,211 @@
+
+==============================================================================
+A. Which feeds are clean? (establish a reference population)
+==============================================================================
+  dwelling    n= 771  max price/carpet=  15975.61  records over 20k/sqft: 0
+  squarelane  n= 744  max price/carpet=  15750.64  records over 20k/sqft: 0
+  100acres    n= 743  max price/carpet=   15884.5  records over 20k/sqft: 0
+  magichomes  n= 760  max price/carpet= 168469.39  records over 20k/sqft: 303
+  zerobroker  n= 782  max price/carpet=  16228.14  records over 20k/sqft: 0
+
+  minimum carpet_area by feed:
+    dwelling    smallest 8: 339, 386, 393, 403, 404, 405, 406, 407
+    squarelane  smallest 8: 323, 353, 373, 376, 382, 383, 384, 386
+    100acres    smallest 8: 318, 352, 376, 395, 413, 414, 414, 428
+    magichomes  smallest 8: 41, 42, 43, 44, 44, 45, 47, 48
+    zerobroker  smallest 8: 340, 382, 394, 418, 420, 421, 425, 429
+
+==============================================================================
+B. The bedroom-normalised area score (unit test with no threshold)
+==============================================================================
+
+--- reference median carpet_area by property_type + bedroom (clean feeds only) ---
+  apartment|0              1214
+  apartment|1              475.5
+  apartment|2              837
+  apartment|3              1203
+  apartment|4              1565
+  apartment|5              1913
+  builder floor|0          919
+  builder floor|1          519.5
+  builder floor|2          851
+  builder floor|3          1199.5
+  builder floor|4          1554
+  builder floor|5          1921
+  independent house|1      490
+  independent house|2      846.5
+  independent house|3      1209
+  independent house|4      1555
+  independent house|5      1917
+  plot|0                   1705.5
+  villa|1                  467
+  villa|2                  827
+  villa|3                  1191
+  villa|4                  1551
+  villa|5                  1931
+
+--- distribution of the score across all 3800 listings ---
+        0.07 |   305 #########
+        0.16 |     1 
+        0.24 |     0 
+        0.32 |     1 
+        0.41 |     3 
+        0.49 |     5 
+        0.57 |     6 
+        0.65 |     7 
+        0.74 |    35 #
+        0.82 |   171 #####
+        0.90 |  1187 #################################
+        0.99 |  1634 ##############################################
+        1.07 |   353 ##########
+        1.15 |    49 #
+        1.23 |    17 
+        1.32 |     3 
+        1.40 |     6 
+        1.48 |     4 
+        1.57 |     7 
+        1.65 |     0 
+        1.73 |     1 
+        1.81 |     0 
+        1.90 |     0 
+        1.98 |     1 
+        2.06 |     2 
+        2.15 |     2 
+  expected score if the record is in sq m instead of sq ft: 0.0929
+
+--- is the distribution bimodal with an empty gap? ---
+    score in [   0, 0.06) :     0 
+    score in [0.06, 0.08) :     4 
+    score in [0.08, 0.11) :   295 #######
+    score in [0.11, 0.14) :     6 
+    score in [0.14,  0.3) :     1 
+    score in [ 0.3,  0.5) :     4 
+    score in [ 0.5,  0.7) :    15 
+    score in [ 0.7,  1.5) :  3458 ############################################################
+    score in [ 1.5,    3) :    17 
+
+--- records scoring below 0.3 : 306 ---
+  by website : [["magichomes",306]]
+  by property_type: [["apartment",222],["independent house",29],["villa",25],["builder floor",17],["plot",13]]
+  by bedroom : [[0,14],[1,19],[2,98],[3,118],[4,43],[5,14]]
+  by locality: [["wakad",35],["hinjewadi",35],["aundh",34],["hadapsar",33],["viman nagar",31],["baner",30],["kharadi",30],["kothrud",29],["magarpatta",28],["balewadi",21]]
+  is_live    : [[true,247],[false,59]]
+  score range: 0.0741 .. 0.1828
+  score median: 0.0933   (1/10.764 = 0.0929)
+
+--- and what do the magichomes records that DO score near 1 look like? ---
+  magichomes total 760, scoring >=0.3: 454, scoring <0.3: 306
+
+--- sanity check: convert the suspects and re-measure price per sq ft ---
+  clean feeds       p5=5974.24  p50=10337.66  p95=14538.28
+  suspects as-is    p5=61944.44  p50=111008.4  p95=156961.13
+  suspects x10.7639 p5=5754.83  p50=10313.02  p95=14582.17
+
+--- same building, both units? (the clinching check) ---
+
+  Rohan Grand  (bedroom=2)
+    sq m?  MAG-3002847   magichomes  carpet=   73 super=   99  x10.764 -> 785.77
+    sq ft  100-3000752   100acres    carpet=  921 super= 1200
+    sq ft  SQU-3001737   squarelane  carpet=  776 super= 1120
+    sq ft  SQU-3002615   squarelane  carpet=  786 super= 1139
+
+  Kolte Patil Habitat  (bedroom=3)
+    sq m?  MAG-3001667   magichomes  carpet=  122 super=  160  x10.764 -> 1313.2
+    sq ft  DWE-3000727   dwelling    carpet= 1253 super= 1599
+    sq ft  ZER-3000036   zerobroker  carpet= 1215 super= 1748
+    sq ft  DWE-3000294   dwelling    carpet= 1120 super= 1439
+
+  Puravankara Willows  (bedroom=3)
+    sq m?  MAG-3000066   magichomes  carpet=  107 super=  153  x10.764 -> 1151.74
+    sq ft  100-3002482   100acres    carpet= 1309 super= 1762
+    sq ft  DWE-3000616   dwelling    carpet= 1197 super= 1532
+
+  Shriram Greens  (bedroom=3)
+    sq m?  MAG-3002810   magichomes  carpet=  115 super=  165  x10.764 -> 1237.85
+    sq m?  MAG-3001311   magichomes  carpet=  113 super=  146  x10.764 -> 1216.32
+    sq ft  DWE-3000693   dwelling    carpet= 1273 super= 1687
+    sq ft  ZER-3001278   zerobroker  carpet= 1204 super= 1593
+    sq ft  SQU-3002308   squarelane  carpet= 1178 super= 1568
+
+  Mantri Willows  (bedroom=2)
+    sq m?  MAG-3002387   magichomes  carpet=   79 super=  110  x10.764 -> 850.35
+    sq ft  ZER-3000589   zerobroker  carpet=  885 super= 1248
+    sq ft  100-3000985   100acres    carpet=  781 super= 1053
+    sq ft  DWE-3000138   dwelling    carpet=  847 super= 1082
+
+==============================================================================
+C. Do the super_built_up_area values need the same conversion?
+==============================================================================
+  carpet/super among the suspects: p5=0.695 p50=0.7464 p95=0.8053
+  the same ratio across all clean-feed records: p50=0.7419
+  => the ratio is unchanged, so BOTH area fields are converted together,
+     which is exactly why the ratio test could not see this.
+  suspect super_built_up_area range: 53 .. 272
+
+==============================================================================
+D. Project price scale, checked against the listings themselves
+==============================================================================
+  projects with at least one priced listing: 439
+  listing price range inside [price_min, price_max] read as RUPEES      : 0
+  listing price range inside [price_min lakh, price_max crore] (+-10%)  : 213
+
+--- ten examples ---
+  P30001  n= 4  listings Γé╣   72,60,000 .. Γé╣   91,60,000   raw    80/  3.22   as lakh/crore Γé╣   80,00,000 .. Γé╣  3,22,00,000
+  P30002  n= 5  listings Γé╣ 1,01,60,000 .. Γé╣ 2,27,30,000   raw  38.5/   1.4   as lakh/crore Γé╣   38,50,000 .. Γé╣  1,40,00,000
+  P30003  n= 4  listings Γé╣   78,90,000 .. Γé╣ 1,69,90,000   raw  68.3/  1.74   as lakh/crore Γé╣   68,30,000 .. Γé╣  1,74,00,000
+  P30004  n= 6  listings Γé╣   75,00,000 .. Γé╣ 1,78,60,000   raw  76.5/  2.96   as lakh/crore Γé╣   76,50,000 .. Γé╣  2,96,00,000
+  P30005  n= 1  listings Γé╣ 1,11,90,000 .. Γé╣ 1,11,90,000   raw  67.1/  1.48   as lakh/crore Γé╣   67,10,000 .. Γé╣  1,48,00,000
+  P30006  n= 6  listings Γé╣   45,30,000 .. Γé╣ 1,25,30,000   raw  58.6/  1.88   as lakh/crore Γé╣   58,60,000 .. Γé╣  1,88,00,000
+  P30007  n= 6  listings Γé╣   95,80,000 .. Γé╣ 1,98,40,000   raw  91.2/  1.99   as lakh/crore Γé╣   91,20,000 .. Γé╣  1,99,00,000
+  P30008  n= 4  listings Γé╣   36,10,000 .. Γé╣ 1,34,50,000   raw  74.2/   1.4   as lakh/crore Γé╣   74,20,000 .. Γé╣  1,40,00,000
+  P30009  n= 6  listings Γé╣   58,30,000 .. Γé╣ 1,37,40,000   raw  1.34/  3.13   as lakh/crore Γé╣    1,34,000 .. Γé╣  3,13,00,000
+  P30010  n= 8  listings Γé╣   35,00,000 .. Γé╣ 1,99,40,000   raw  86.5/  2.31   as lakh/crore Γé╣   86,50,000 .. Γé╣  2,31,00,000
+
+--- price_max distribution as served - is it all one scale? ---
+        1.01 |   418 ##############################################
+        5.95 |     0 
+       10.90 |     0 
+       15.84 |     0 
+       20.79 |     0 
+       25.73 |     0 
+       30.68 |     0 
+       35.62 |     0 
+       40.57 |     0 
+       45.51 |     0 
+       50.45 |     0 
+       55.40 |     0 
+       60.34 |     1 
+       65.29 |     1 
+       70.23 |     0 
+       75.18 |     3 
+       80.12 |     0 
+       85.07 |     5 #
+       90.01 |     4 
+       94.96 |     8 #
+  price_max > 10 : 22
+  price_max > 20 : 22
+  price_max > 50 : 22
+
+--- the ten highest price_max, with their projects ---
+  P30394  price_min= 49.5  price_max=  99.9  as crore Γé╣  99,90,00,000  units=1731  max_area=1219  listings= 6  costliest listing=Γé╣2,15,70,000
+  P30093  price_min= 57.1  price_max=  99.3  as crore Γé╣  99,30,00,000  units=1576  max_area=1193  listings= 6  costliest listing=Γé╣1,26,50,000
+  P30015  price_min= 40.9  price_max=  97.8  as crore Γé╣  97,80,00,000  units=1142  max_area=1197  listings= 5  costliest listing=Γé╣2,01,40,000
+  P30079  price_min= 40.6  price_max=  97.2  as crore Γé╣  97,20,00,000  units=1847  max_area=1563  listings= 7  costliest listing=Γé╣2,50,90,000
+  P30296  price_min=   55  price_max=  96.4  as crore Γé╣  96,40,00,000  units=2225  max_area=1679  listings= 3  costliest listing=Γé╣2,13,20,000
+  P30013  price_min= 36.6  price_max=  96.2  as crore Γé╣  96,20,00,000  units=1159  max_area=1637  listings= 8  costliest listing=Γé╣1,08,00,000
+  P30063  price_min= 67.6  price_max=  96.2  as crore Γé╣  96,20,00,000  units=1222  max_area=1261  listings= 4  costliest listing=Γé╣1,66,20,000
+  P30041  price_min= 70.3  price_max=  95.2  as crore Γé╣  95,20,00,000  units=1963  max_area=1568  listings= 7  costliest listing=Γé╣1,91,80,000
+  P30424  price_min= 39.8  price_max=  93.7  as crore Γé╣  93,70,00,000  units=1782  max_area=1464  listings=11  costliest listing=Γé╣2,26,50,000
+  P30044  price_min= 37.6  price_max=  93.6  as crore Γé╣  93,60,00,000  units=2304  max_area=1366  listings= 4  costliest listing=Γé╣1,47,60,000
+
+--- price_min distribution as served ---
+  min=1 p25=38.6 p50=64.15 p75=79.35 max=99.9
+  price_min < 1  : 0
+  price_min > 100: 0
+
+--- implied price per sq ft under the lakh/crore reading ---
+  price_min(lakh)/max_area : p50=2875.21
+  price_max(crore)/max_area: p50=9329.5  p95=39509.54  max=870408.16
+  for reference, listing price/carpet p50 among clean feeds = 10334.15
+
+wrote notes\03-units.json

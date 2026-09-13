@@ -1,0 +1,126 @@
+
+==============================================================================
+A. The tail of /v1/listings - does 3800 really exhaust it?
+==============================================================================
+  offset= 3750 -> 200  {"limit":50,"offset":3750,"count":50,"total":3466,"has_more":false}
+  offset= 3799 -> 200  {"limit":50,"offset":3799,"count":1,"total":3466,"has_more":false}
+  offset= 3800 -> 200  {"limit":50,"offset":3800,"count":0,"total":3466,"has_more":false}
+  offset= 3801 -> 200  {"limit":50,"offset":3801,"count":0,"total":3466,"has_more":false}
+  offset= 4000 -> 200  {"limit":50,"offset":4000,"count":0,"total":3466,"has_more":false}
+
+--- does the ceiling of 50 change the total retrievable count? ---
+  limit=1  offset=3799 -> DWE-3003019  has_more=false
+  limit=50 offset=3750 -> last record DWE-3003019  has_more=false
+  same last record: true
+
+==============================================================================
+B. Filters on /v1/listings - documented and undocumented
+==============================================================================
+  locality=magarpatta                200  returned= 50  total=  342  snapshot=  375  filters correctly
+  locality=Magarpatta (capitalised)  200  returned= 50  total=  342  snapshot=    -  filters correctly
+  bhk=2                              200  returned= 50  total= 1134  snapshot= 1243  filters correctly
+  property_type=villa                200  returned= 50  total=  254  snapshot=  278  filters correctly
+  min_price=20000000                 200  returned= 50  total=  211  snapshot=  231  filters correctly
+  max_price=5000000                  200  returned= 50  total=  194  snapshot=  213  filters correctly
+  furnishing=fully-furnished         200  returned= 50  total= 1174  snapshot= 1287  filters correctly
+  min_price+max_price band           200  returned= 50  total=  306  snapshot=  336  filters correctly
+  locality+bhk together              200  returned= 50  total=  134  snapshot=  147  filters correctly
+  project_id=P30001                  200  returned= 50  total= 3466  snapshot=    4  *** IGNORED: 50/50 returned records violate it ***
+  is_live=true                       200  returned= 50  total= 3466  snapshot= 2998  *** IGNORED: 10/50 returned records violate it ***
+  website=dwelling                   200  returned= 50  total= 3466  snapshot=  771  *** IGNORED: 40/50 returned records violate it ***
+  bedroom=2 (instead of bhk)         200  returned= 50  total= 3466  snapshot= 1243  *** IGNORED: 31/50 returned records violate it ***
+  not_a_real_param=xyz               200  returned= 50  total= 3466  snapshot= 3800  filters correctly
+  locality=nonexistent               200  returned=  0  total=    0  snapshot=    0  returned nothing
+
+==============================================================================
+C. Sorting
+==============================================================================
+  sort_by=price        order=asc   200  first=-15890000             last=3370000               sorts as asked
+  sort_by=price        order=desc  200  first=-15890000             last=3370000               *** sorted ASC despite order=desc ***
+  sort_by=carpet_area  order=asc   200  first=318                   last=434                   sorts as asked
+  sort_by=carpet_area  order=desc  200  first=318                   last=434                   *** sorted ASC despite order=desc ***
+  sort_by=posted_at    order=asc   200  first=2026-01-13T20:12:00   last=2026-01-16T19:19:00   *** not sorted at all ***
+  sort_by=posted_at    order=desc  200  first=2026-01-13T20:12:00   last=2026-01-16T19:19:00   *** not sorted at all ***
+  sort_by=bedroom      order=asc   200  first=0                     last=0                     all values equal - inconclusive
+  sort_by=bedroom      order=desc  200  first=0                     last=0                     all values equal - inconclusive
+
+--- an undocumented sort field, to see whether unknown values are rejected ---
+  sort_by=deposit          -> 400 "cannot sort by 'deposit'; sortable fields: ['bedroom', 'carpet_area', 'posted_at', 'price']"
+  sort_by=nonsense_field   -> 400 "cannot sort by 'nonsense_field'; sortable fields: ['bedroom', 'carpet_area', 'posted_at', 'price']"
+
+==============================================================================
+D. Single-record paths
+==============================================================================
+  /v1/listing/DWE-3002501                  404  documented=yes - GET /v1/listing/{listing_id}     {"detail":"Not Found"}
+  /v1/listings/DWE-3002501                 200  documented=no                                     object keys: listing_id,listing_url,website,city_id,apartment_name,locality,...
+  /v1/rentals/R3000001                     200  documented=yes - GET /v1/rentals/{listing_id}     object keys: listing_id,listing_url,website,city_id,title,apartment_name,...
+  /v1/rental/R3000001                      404  documented=no                                     {"detail":"Not Found"}
+  /v1/projects/P30001                      200  documented=yes - GET /v1/projects/{project_id}    object keys: project_id,project_url,city_id,apartment_name,developer_name,locality,...
+  /v1/project/P30001                       404  documented=no                                     {"detail":"Not Found"}
+  /v1/listings/DWE-3002501/similar         404  documented=yes - up to ten comparable listings    {"detail":"Not Found"}
+  /v1/listing/DWE-3002501/similar          404  documented=no                                     {"detail":"Not Found"}
+  /v1/listings/NOT-A-REAL-ID               404  documented=n/a - expect 404                       {"detail":"no such listing in your city"}
+  /v1/analytics/summary                    404  documented=yes - full schema given                {"detail":"Not Found"}
+  /v1/analytics                            404  documented=no                                     {"detail":"Not Found"}
+
+--- if /similar exists, does it honour its documented contract? ---
+  /v1/listings/DWE-3003745/similar -> 404
+  /v1/listing/DWE-3003745/similar -> 404
+
+==============================================================================
+E. Favourites
+==============================================================================
+  GET /v1/favourites (demo1, initial)            404  {"detail":"Not Found"}
+  POST /v1/favourites {"id":...}  (documented)   404  {"detail":"Not Found"}
+  POST /v1/favourites {"listing_id":...}         404  {"detail":"Not Found"}
+  GET /v1/favourites (demo1, after)              404  {"detail":"Not Found"}
+
+--- what does the collection actually look like? ---
+  documented: {"count": 3, "results": [ listing objects ]}
+  actual keys: ["detail"]
+
+--- per-user isolation - does demo2 see demo1's favourites? ---
+  GET /v1/favourites (demo2)                     404  {"detail":"Not Found"}
+  demo1 count=0  demo2 count=0  isolated=false
+
+--- survives a fresh login? (favourites must outlast a re-login) ---
+  GET /v1/favourites (demo1, new session)        404  {"detail":"Not Found"}
+  same contents after re-login: true
+
+--- deleting ---
+  DELETE /v1/favourites/DWE-3002501              404  {"detail":"Not Found"}
+  GET /v1/favourites (after delete)              404  {"detail":"Not Found"}
+  DELETE a favourite that is not saved           404  {"detail":"Not Found"}
+  POST the same listing twice                    404  {"detail":"Not Found"}
+  POST a listing id that does not exist          404  {"detail":"Not Found"}
+  GET /v1/favourites without a token             404  {"detail":"Not Found"}
+
+==============================================================================
+F. Auth odds and ends
+==============================================================================
+  bearer token that is nonsense        -> 401 {"detail":"malformed or tampered token"}
+  login with the wrong password        -> 401 {"detail":"invalid email or password"}
+  login as an unknown user             -> 401 {"detail":"invalid email or password"}
+  demo3 logs in                        -> ok, expires_in=900
+  POST /auth/logout                    -> 200 {"ok":true,"note":"tokens are stateless; discard them client side"}
+  the token after logout               -> 200 "still works"
+  refresh with a nonsense token        -> 401 {"detail":"malformed or tampered token"}
+
+==============================================================================
+G. Filters on rentals and projects
+==============================================================================
+  /v1/rentals {"locality":"magarpatta"}            200 returned= 50 total=  119 snapshot=  130  filters correctly
+  /v1/rentals {"bhk":3}                            200 returned= 50 total=  401 snapshot=  440  filters correctly
+  /v1/rentals {"furnishing":"unfurnished"}         200 returned= 50 total=  440 snapshot=  482  filters correctly
+  /v1/rentals {"min_price":50000}                  200 returned= 50 total= 1323 snapshot=  261  *** IGNORED: 37/50 violate ***
+  /v1/projects {"locality":"kharadi"}               200 returned= 50 total=   52 snapshot=   57  filters correctly
+  /v1/projects {"project_status":"ready to move"}   200 returned= 50 total=  143 snapshot=  157  filters correctly
+
+--- sorting on projects ---
+  sort_by=price_min    order=desc -> 200  [32.6,33.7,33.8,34,35.4,36.6]  monotone-desc=false
+  sort_by=price_max    order=desc -> 200  [62.7,66.5,75.3,75.5,79.6,85.3]  monotone-desc=false
+  sort_by=launch_date  order=desc -> 200  ["2020-02-14","2020-02-17","2020-02-18","2020-02-21","2020-03-05","2020-03-14"]  monotone-desc=false
+  sort_by=total_units  order=desc -> 200  [92,99,106,107,108,110]  monotone-desc=false
+
+requests this run: 78
+wrote notes\08-probe.json

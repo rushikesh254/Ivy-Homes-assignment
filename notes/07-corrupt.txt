@@ -1,0 +1,178 @@
+
+==============================================================================
+A. Establish what a plot legitimately looks like
+==============================================================================
+  property_type counts: [["apartment",2776],["independent house",350],["villa",278],["builder floor",260],["plot",136]]
+
+  plots: 136
+    bedroom values      : [[0,136]]
+    bathroom values     : [[0,136]]
+    floor values        : [[0,136]]
+    total_floors values : [[0,136]]
+    carpet == super     : 136 of 136
+    carpet >  super     : 0
+
+  non-plots: 3664
+    bedroom = 0         : 7
+    bathroom = 0        : 7
+    total_floors = 0    : 0
+    carpet == super     : 0
+    carpet >  super     : 7
+
+--- any record with bedroom = 0 that is NOT a plot? ---
+  7 records
+    SQU-3002720   type=apartment          bhk=0 bath=0 floor=14/28 carpet=1214 super=1750 price=9400000 live=false
+    ZER-3000329   type=builder floor      bhk=0 bath=0 floor=7/17 carpet=919 super=1307 price=9330000 live=true
+    ZER-3002902   type=apartment          bhk=0 bath=0 floor=7/13 carpet=821 super=1076 price=8160000 live=false
+    MAG-3002780   type=apartment          bhk=0 bath=0 floor=9/32 carpet=115 super=150 price=8640000 live=true
+    SQU-3000576   type=apartment          bhk=0 bath=0 floor=4/9 carpet=1221 super=1713 price=10540000 live=true
+    DWE-3001395   type=apartment          bhk=0 bath=0 floor=29/31 carpet=1298 super=1728 price=15570000 live=true
+    ZER-3002377   type=apartment          bhk=0 bath=0 floor=9/15 carpet=1187 super=1714 price=14760000 live=true
+
+--- any plot on a floor above the ground, or in a building with floors? ---
+  0 records
+
+==============================================================================
+B. Impossibility rules, each reported separately
+==============================================================================
+  coords_transposed                 7
+      SQU-3000026   apartment          bhk=3 bath=2 fl=15/29 carpet= 1187 super= 1568 price=   17170000 lat=73.77656 live=false
+      SQU-3001738   villa              bhk=4 bath=4 fl=17/17 carpet= 1552 super= 2203 price=   19490000 lat=73.91532 live=true
+      ZER-3003055   apartment          bhk=4 bath=3 fl=19/26 carpet= 1545 super= 2102 price=   14120000 lat=73.82807 live=true
+      MAG-3000020   apartment          bhk=3 bath=3 fl=0/4 carpet= 1121 super= 1509 price=   11200000 lat=73.78793 live=true
+      SQU-3001297   apartment          bhk=2 bath=2 fl=17/32 carpet=  968 super= 1357 price=   10150000 lat=73.70871 live=true
+      SQU-3003195   villa              bhk=2 bath=1 fl=4/4 carpet=  811 super= 1131 price=   12220000 lat=73.82171 live=true
+      DWE-3001835   apartment          bhk=2 bath=2 fl=13/22 carpet=  887 super= 1166 price=   11300000 lat=73.72776 live=true
+  negative_price                    7
+      100-3003022   apartment          bhk=2 bath=2 fl=18/28 carpet=  886 super= 1159 price=   -7730000 lat=18.36775 live=true
+      100-3000174   apartment          bhk=2 bath=1 fl=2/14 carpet=  831 super= 1104 price=   -8590000 lat=18.50779 live=true
+      SQU-3000591   apartment          bhk=4 bath=4 fl=12/24 carpet= 1596 super= 2234 price=  -15890000 lat=18.61893 live=true
+      SQU-3000419   independent house  bhk=2 bath=1 fl=5/7 carpet=  899 super= 1222 price=   -7140000 lat=18.49635 live=true
+      100-3002344   independent house  bhk=3 bath=3 fl=9/10 carpet= 1126 super= 1607 price=   -9730000 lat=18.65048 live=true
+      MAG-3001986   apartment          bhk=4 bath=4 fl=2/21 carpet=  144 super=  187 price=  -10770000 lat=18.40497 live=true
+      MAG-3001979   apartment          bhk=2 bath=2 fl=12/16 carpet=  885 super= 1252 price=  -11500000 lat=18.49935 live=false
+  zero_price                        0
+  floor_above_building              7
+      MAG-3000932   apartment          bhk=2 bath=1 fl=11/7 carpet=  840 super= 1142 price=    9300000 lat=18.61385 live=true
+      100-3001548   apartment          bhk=1 bath=1 fl=41/31 carpet=  318 super=  442 price=    3700000 lat=18.58611 live=true
+      DWE-3001307   apartment          bhk=2 bath=1 fl=43/29 carpet=  791 super= 1136 price=    9340000 lat=18.39846 live=true
+      100-3001067   apartment          bhk=3 bath=2 fl=8/4 carpet= 1198 super= 1693 price=   10160000 lat=18.51079 live=true
+      DWE-3003186   apartment          bhk=2 bath=1 fl=41/32 carpet=  840 super= 1152 price=   10130000 lat=18.50606 live=true
+      SQU-3001698   apartment          bhk=2 bath=1 fl=34/20 carpet=  764 super= 1077 price=    8170000 lat=18.39939 live=true
+      100-3001543   apartment          bhk=3 bath=2 fl=29/14 carpet= 1196 super= 1561 price=    9650000 lat=18.37316 live=true
+  carpet_exceeds_super              7
+      ZER-3000380   apartment          bhk=1 bath=1 fl=1/12 carpet= 1060 super=  699 price=    5520000 lat=18.67068 live=true
+      DWE-3001849   apartment          bhk=2 bath=1 fl=2/20 carpet= 1497 super=  889 price=    7240000 lat=18.66738 live=true
+      100-3000236   villa              bhk=2 bath=2 fl=8/18 carpet= 1812 super= 1262 price=    8490000 lat=18.54912 live=false
+      100-3000608   apartment          bhk=2 bath=2 fl=5/6 carpet= 1729 super= 1206 price=    8750000 lat=18.64658 live=true
+      DWE-3000235   apartment          bhk=2 bath=2 fl=4/27 carpet= 1788 super= 1066 price=    8740000 lat=18.59789 live=false
+      MAG-3001263   apartment          bhk=2 bath=1 fl=0/6 carpet=  153 super=  102 price=    9860000 lat=18.54395 live=true
+      DWE-3000299   apartment          bhk=3 bath=2 fl=9/12 carpet= 2398 super= 1600 price=   15920000 lat=18.55183 live=true
+  carpet_equals_super_non_plot      0
+  posted_after_reference            7
+      100-3000532   apartment          bhk=3 bath=2 fl=1/10 carpet= 1227 super= 1589 price=   13440000 lat=18.59606 live=true
+      100-3002582   apartment          bhk=3 bath=2 fl=5/12 carpet= 1084 super= 1489 price=   10550000 lat=18.42088 live=false
+      SQU-3003016   apartment          bhk=5 bath=5 fl=26/29 carpet= 1877 super= 2683 price=   29440000 lat=18.63432 live=true
+      100-3000685   apartment          bhk=4 bath=4 fl=21/23 carpet= 1565 super= 2017 price=   12690000 lat=18.42372 live=true
+      DWE-3000830   apartment          bhk=3 bath=3 fl=1/4 carpet= 1170 super= 1657 price=    9900000 lat=18.66906 live=false
+      SQU-3001957   apartment          bhk=4 bath=4 fl=0/26 carpet= 1566 super= 2075 price=   16530000 lat=18.52947 live=true
+      DWE-3000032   independent house  bhk=3 bath=3 fl=7/19 carpet= 1221 super= 1690 price=   10260000 lat=18.51262 live=false
+  non_plot_no_bedroom               7
+      SQU-3002720   apartment          bhk=0 bath=0 fl=14/28 carpet= 1214 super= 1750 price=    9400000 lat=18.50314 live=false
+      ZER-3000329   builder floor      bhk=0 bath=0 fl=7/17 carpet=  919 super= 1307 price=    9330000 lat=18.46893 live=true
+      ZER-3002902   apartment          bhk=0 bath=0 fl=7/13 carpet=  821 super= 1076 price=    8160000 lat=18.51136 live=false
+      MAG-3002780   apartment          bhk=0 bath=0 fl=9/32 carpet=  115 super=  150 price=    8640000 lat=18.41266 live=true
+      SQU-3000576   apartment          bhk=0 bath=0 fl=4/9 carpet= 1221 super= 1713 price=   10540000 lat=18.39264 live=true
+      DWE-3001395   apartment          bhk=0 bath=0 fl=29/31 carpet= 1298 super= 1728 price=   15570000 lat=18.49436 live=true
+      ZER-3002377   apartment          bhk=0 bath=0 fl=9/15 carpet= 1187 super= 1714 price=   14760000 lat=18.611 live=true
+  non_plot_no_bathroom              7
+      SQU-3002720   apartment          bhk=0 bath=0 fl=14/28 carpet= 1214 super= 1750 price=    9400000 lat=18.50314 live=false
+      ZER-3000329   builder floor      bhk=0 bath=0 fl=7/17 carpet=  919 super= 1307 price=    9330000 lat=18.46893 live=true
+      ZER-3002902   apartment          bhk=0 bath=0 fl=7/13 carpet=  821 super= 1076 price=    8160000 lat=18.51136 live=false
+      MAG-3002780   apartment          bhk=0 bath=0 fl=9/32 carpet=  115 super=  150 price=    8640000 lat=18.41266 live=true
+      SQU-3000576   apartment          bhk=0 bath=0 fl=4/9 carpet= 1221 super= 1713 price=   10540000 lat=18.39264 live=true
+      DWE-3001395   apartment          bhk=0 bath=0 fl=29/31 carpet= 1298 super= 1728 price=   15570000 lat=18.49436 live=true
+      ZER-3002377   apartment          bhk=0 bath=0 fl=9/15 carpet= 1187 super= 1714 price=   14760000 lat=18.611 live=true
+  non_plot_no_floors                0
+
+==============================================================================
+C. Overlap between the rules
+==============================================================================
+  union of all firing rules: 42 records
+  records triggering more than one rule: 7
+    DWE-3001395   non_plot_no_bedroom, non_plot_no_bathroom
+    MAG-3002780   non_plot_no_bedroom, non_plot_no_bathroom
+    SQU-3000576   non_plot_no_bedroom, non_plot_no_bathroom
+    SQU-3002720   non_plot_no_bedroom, non_plot_no_bathroom
+    ZER-3000329   non_plot_no_bedroom, non_plot_no_bathroom
+    ZER-3002377   non_plot_no_bedroom, non_plot_no_bathroom
+    ZER-3002902   non_plot_no_bedroom, non_plot_no_bathroom
+
+  per-rule counts: {"coords_transposed":7,"negative_price":7,"floor_above_building":7,"carpet_exceeds_super":7,"posted_after_reference":7,"non_plot_no_bedroom":7,"non_plot_no_bathroom":7}
+
+==============================================================================
+D. Same rules on rentals and projects, for the findings list
+==============================================================================
+  rentals:
+    coords_transposed        0
+    non_positive_price       0
+    floor_above_building     0
+    carpet_exceeds_super     0
+    posted_after_reference   0
+    negative_deposit         0
+  projects:
+    possession_before_launch 0
+    non_positive_units       0
+    min_area_above_max       0
+    floors_below_one         0
+    towers_below_one         0
+
+==============================================================================
+E. The answer to question 4
+==============================================================================
+  rules used: coords_transposed, negative_price, floor_above_building, carpet_exceeds_super, posted_after_reference, non_plot_no_bedroom, non_plot_no_bathroom
+  corrupt_listing_ids (42):
+    100-3000174   negative_price
+    100-3000236   carpet_exceeds_super
+    100-3000532   posted_after_reference
+    100-3000608   carpet_exceeds_super
+    100-3000685   posted_after_reference
+    100-3001067   floor_above_building
+    100-3001543   floor_above_building
+    100-3001548   floor_above_building
+    100-3002344   negative_price
+    100-3002582   posted_after_reference
+    100-3003022   negative_price
+    DWE-3000032   posted_after_reference
+    DWE-3000235   carpet_exceeds_super
+    DWE-3000299   carpet_exceeds_super
+    DWE-3000830   posted_after_reference
+    DWE-3001307   floor_above_building
+    DWE-3001395   non_plot_no_bedroom, non_plot_no_bathroom
+    DWE-3001835   coords_transposed
+    DWE-3001849   carpet_exceeds_super
+    DWE-3003186   floor_above_building
+    MAG-3000020   coords_transposed
+    MAG-3000932   floor_above_building
+    MAG-3001263   carpet_exceeds_super
+    MAG-3001979   negative_price
+    MAG-3001986   negative_price
+    MAG-3002780   non_plot_no_bedroom, non_plot_no_bathroom
+    SQU-3000026   coords_transposed
+    SQU-3000419   negative_price
+    SQU-3000576   non_plot_no_bedroom, non_plot_no_bathroom
+    SQU-3000591   negative_price
+    SQU-3001297   coords_transposed
+    SQU-3001698   floor_above_building
+    SQU-3001738   coords_transposed
+    SQU-3001957   posted_after_reference
+    SQU-3002720   non_plot_no_bedroom, non_plot_no_bathroom
+    SQU-3003016   posted_after_reference
+    SQU-3003195   coords_transposed
+    ZER-3000329   non_plot_no_bedroom, non_plot_no_bathroom
+    ZER-3000380   carpet_exceeds_super
+    ZER-3002377   non_plot_no_bedroom, non_plot_no_bathroom
+    ZER-3002902   non_plot_no_bedroom, non_plot_no_bathroom
+    ZER-3003055   coords_transposed
+
+wrote notes\07-corrupt.json

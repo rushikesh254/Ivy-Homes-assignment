@@ -1,0 +1,124 @@
+{
+  "post_field": {
+    "after_id_only": {
+      "count": 0,
+      "results": []
+    },
+    "after_both": {
+      "count": 1,
+      "results": [
+        {
+          "listing_id": "SQU-3001712",
+          "listing_url": "https://www.squarelane.com/property/3001712",
+          "website": "squarelane",
+          "city_id": 3,
+          "apartment_name": "Shriram Park",
+          "locality": "hinjewadi",
+          "property_type": "villa",
+          "bedroom": 2,
+          "bathroom": 2,
+          "balcony": 2,
+          "floor": 19,
+          "total_floors": 23,
+          "furnishing": "unfurnished",
+          "facing_direction": "north-west",
+          "covered_parking": 1,
+          "price": 7210000,
+          "carpet_area": 812,
+          "super_built_up_area": 1094,
+          "latitude": 18.65307,
+          "longitude": 73.83275,
+          "posted_by": "owner",
+          "posted_by_name": "Manish Sharma",
+          "posted_by_contact": "+912009049600",
+          "project_id": null,
+          "is_verified": true,
+          "description": "Urgent sale - owner relocating. Newly painted 2 BHK villa in Shriram Park, Hinjewadi. Unfurnished, north-west-facing. Quiet lane with no through traffic; modular kitchen.",
+          "posted_at": "2026-01-24T18:49:00",
+          "is_live": true
+        }
+      ]
+    },
+    "after_duplicate": {
+      "count": 1,
+      "results": [
+        {
+          "listing_id": "SQU-3001712",
+          "listing_url": "https://www.squarelane.com/property/3001712",
+          "website": "squarelane",
+          "city_id": 3,
+          "apartment_name": "Shriram Park",
+          "locality": "hinjewadi",
+          "property_type": "villa",
+          "bedroom": 2,
+          "bathroom": 2,
+          "balcony": 2,
+          "floor": 19,
+          "total_floors": 23,
+          "furnishing": "unfurnished",
+          "facing_direction": "north-west",
+          "covered_parking": 1,
+          "price": 7210000,
+          "carpet_area": 812,
+          "super_built_up_area": 1094,
+          "latitude": 18.65307,
+          "longitude": 73.83275,
+          "posted_by": "owner",
+          "posted_by_name": "Manish Sharma",
+          "posted_by_contact": "+912009049600",
+          "project_id": null,
+          "is_verified": true,
+          "description": "Urgent sale - owner relocating. Newly painted 2 BHK villa in Shriram Park, Hinjewadi. Unfurnished, north-west-facing. Quiet lane with no through traffic; modular kitchen.",
+          "posted_at": "2026-01-24T18:49:00",
+          "is_live": true
+        }
+      ]
+    }
+  },
+  "shape": {
+    "keys": [
+      "count",
+      "results"
+    ],
+    "count": 1,
+    "first": {
+      "listing_id": "SQU-3001712",
+      "listing_url": "https://www.squarelane.com/property/3001712",
+      "website": "squarelane",
+      "city_id": 3,
+      "apartment_name": "Shriram Park",
+      "locality": "hinjewadi",
+      "property_type": "villa",
+      "bedroom": 2,
+      "bathroom": 2,
+      "balcony": 2,
+      "floor": 19,
+      "total_floors": 23,
+      "furnishing": "unfurnished",
+      "facing_direction": "north-west",
+      "covered_parking": 1,
+      "price": 7210000,
+      "carpet_area": 812,
+      "super_built_up_area": 1094,
+      "latitude": 18.65307,
+      "longitude": 73.83275,
+      "posted_by": "owner",
+      "posted_by_name": "Manish Sharma",
+      "posted_by_contact": "+912009049600",
+      "project_id": null,
+      "is_verified": true,
+      "description": "Urgent sale - owner relocating. Newly painted 2 BHK villa in Shriram Park, Hinjewadi. Unfurnished, north-west-facing. Quiet lane with no through traffic; modular kitchen.",
+      "posted_at": "2026-01-24T18:49:00",
+      "is_live": true
+    }
+  },
+  "isolation": {
+    "demo1": [
+      "SQU-3001712"
+    ],
+    "demo2": [],
+    "demo1_after_relogin": [
+      "SQU-3001712"
+    ]
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "q1": {
+    "method": "paged /v1/listings with limit=50 and increasing offset until has_more was false, 76 pages",
+    "fetched": 3800,
+    "advertised_total": 3466,
+    "distinct_ids": 3800,
+    "tail_confirmed": "offset=3800 -> count 0, has_more false"
+  },
+  "q2": {
+    "properties": 3230,
+    "duplicate_records": 570,
+    "tolerance": "+-1% allowed by the question"
+  },
+  "q3": {
+    "live": 2998,
+    "not_live": 802
+  },
+  "q4": {
+    "count": 42,
+    "ids": [
+      "100-3000174",
+      "100-3000236",
+      "100-3000532",
+      "100-3000608",
+      "100-3000685",
+      "100-3001067",
+      "100-3001543",
+      "100-3001548",
+      "100-3002344",
+      "100-3002582",
+      "100-3003022",
+      "DWE-3000032",
+      "DWE-3000235",
+      "DWE-3000299",
+      "DWE-3000830",
+      "DWE-3001307",
+      "DWE-3001395",
+      "DWE-3001835",
+      "DWE-3001849",
+      "DWE-3003186",
+      "MAG-3000020",
+      "MAG-3000932",
+      "MAG-3001263",
+      "MAG-3001979",
+      "MAG-3001986",
+      "MAG-3002780",
+      "SQU-3000026",
+      "SQU-3000419",
+      "SQU-3000576",
+      "SQU-3000591",
+      "SQU-3001297",
+      "SQU-3001698",
+      "SQU-3001738",
+      "SQU-3001957",
+      "SQU-3002720",
+      "SQU-3003016",
+      "SQU-3003195",
+      "ZER-3000329",
+      "ZER-3000380",
+      "ZER-3002377",
+      "ZER-3002902",
+      "ZER-3003055"
+    ]
+  },
+  "q5": {
+    "locality": "magarpatta",
+    "records": 130,
+    "total": 4855700,
+    "live_only_alternative": 4159400
+  },
+  "q6": {
+    "pool": 859,
+    "excluded_corrupt": 42,
+    "excluded_fake": 320,
+    "sqm_corrected_in_pool": 66,
+    "mean_of_ratios": 10844.99,
+    "median_of_ratios": 10595.65,
+    "aggregate_alternative": 10840.58,
+    "uncorrected_alternative": 19042.07
+  },
+  "q7": {
+    "answer": {
+      "project_id": "P30288",
+      "price_max_inr": 44700000
+    },
+    "implied_per_sqft": 12764,
+    "naive_answer_avoided": {
+      "project_id": "P30394",
+      "if_all_crores": 999000000
+    }
+  },
+  "q8": {
+    "answer": 128,
+    "utc_alternative": 115
+  },
+  "q9": {
+    "count": 320,
+    "contacts": [
+      "+912001427722",
+      "+912002255305",
+      "+912002380640",
+      "+912002574181",
+      "+912002642467",
+      "+912004249280",
+      "+912006064871",
+      "+912006085798",
+      "+912008344844",
+      "+912009027125",
+      "+912009460980",
+      "+912009819040"
+    ]
+  },
+  "q10": {
+    "chosen": "live_only",
+    "candidates": {
+      "all_records": {
+        "wrong": 317,
+        "exact": 123
+      },
+      "live_only": {
+        "wrong": 95,
+        "exact": 345
+      },
+      "live_and_not_duplicate": {
+        "wrong": 251,
+        "exact": 189
+      },
+      "not_duplicate": {
+        "wrong": 306,
+        "exact": 134
+      }
+    },
+    "answer": 95
+  }
+}

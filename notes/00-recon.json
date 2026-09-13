@@ -1,0 +1,424 @@
+{
+  "health": {
+    "status": 200,
+    "body": {
+      "status": "ok",
+      "server_time": "2026-09-13T16:32:09.196479+05:30",
+      "timezone": "Asia/Kolkata",
+      "reference_date": "2026-09-10T00:00:00+05:30"
+    },
+    "local_iso": "2026-09-13T11:02:09.022Z"
+  },
+  "key_transport": {
+    "no_key": {
+      "status": 401,
+      "body": {
+        "detail": "missing X-API-Key header"
+      }
+    },
+    "key_in_query": {
+      "status": 401,
+      "body": {
+        "detail": "send your key in the X-API-Key request header, not as a query parameter"
+      }
+    },
+    "bad_key": {
+      "status": 401,
+      "body": {
+        "detail": "unknown api key"
+      }
+    },
+    "key_without_token": {
+      "status": 401,
+      "body": {
+        "detail": "missing bearer token - log in at POST /auth/login first"
+      }
+    }
+  },
+  "login": {
+    "body_keys": [
+      "access_token",
+      "refresh_token",
+      "token_type",
+      "expires_in",
+      "refresh_url",
+      "user"
+    ],
+    "expires_in": 900,
+    "token_type": "Bearer",
+    "refresh_url": "/auth/refresh",
+    "user": {
+      "email": "demo1@ivy.homes"
+    },
+    "access_claims": {
+      "exp": 1789298231,
+      "iat": 1789297331,
+      "key": "IVY26-7D1052B37658",
+      "sub": "demo1@ivy.homes",
+      "typ": "access"
+    },
+    "refresh_claims": {
+      "exp": 1789902131,
+      "iat": 1789297331,
+      "key": "IVY26-7D1052B37658",
+      "sub": "demo1@ivy.homes",
+      "typ": "refresh"
+    }
+  },
+  "refresh": {
+    "succeeded": true,
+    "token_changed": false,
+    "expires_in_s": 899
+  },
+  "listings_limit1": {
+    "status": 200,
+    "envelope": {
+      "limit": 1,
+      "offset": 0,
+      "count": 1,
+      "total": 3466,
+      "has_more": true,
+      "results": "<array len=1>"
+    },
+    "record_keys": [
+      "listing_id",
+      "listing_url",
+      "website",
+      "city_id",
+      "apartment_name",
+      "locality",
+      "property_type",
+      "bedroom",
+      "bathroom",
+      "balcony",
+      "floor",
+      "total_floors",
+      "furnishing",
+      "facing_direction",
+      "covered_parking",
+      "price",
+      "carpet_area",
+      "super_built_up_area",
+      "latitude",
+      "longitude",
+      "posted_by",
+      "posted_by_name",
+      "posted_by_contact",
+      "project_id",
+      "is_verified",
+      "description",
+      "posted_at",
+      "is_live"
+    ],
+    "first_record": {
+      "listing_id": "DWE-3002501",
+      "listing_url": "https://www.dwelling.com/property/3002501",
+      "website": "dwelling",
+      "city_id": 3,
+      "apartment_name": "Puravankara Sanctuary",
+      "locality": "wakad",
+      "property_type": "apartment",
+      "bedroom": 1,
+      "bathroom": 1,
+      "balcony": 2,
+      "floor": 21,
+      "total_floors": 30,
+      "furnishing": "unfurnished",
+      "facing_direction": "west",
+      "covered_parking": 1,
+      "price": 4140000,
+      "carpet_area": 493,
+      "super_built_up_area": 652,
+      "latitude": 18.54624,
+      "longitude": 73.70896,
+      "posted_by": "builder",
+      "posted_by_name": "Ananya Iyer",
+      "posted_by_contact": "+912004122182",
+      "project_id": "P30381",
+      "is_verified": true,
+      "description": "Spacious 1 BHK apartment in Puravankara Sanctuary, Wakad. Unfurnished, west-facing. Close to the metro; near schools and hospitals.",
+      "posted_at": "2026-04-30T14:57:00",
+      "is_live": true
+    },
+    "headers": {
+      "alt-svc": "h3=\":443\"; ma=2592000",
+      "content-encoding": "gzip",
+      "content-length": "528",
+      "content-type": "application/json",
+      "date": "Sun, 13 Sep 2026 11:02:11 GMT",
+      "vary": "Accept-Encoding"
+    }
+  },
+  "listings_defaults": {
+    "status": 200,
+    "returned": 20,
+    "envelope": {
+      "limit": 20,
+      "offset": 0,
+      "count": 20,
+      "total": 3466,
+      "has_more": true,
+      "results": "<array len=20>"
+    }
+  },
+  "pagination_probe": {
+    "baseline_id": "DWE-3002501",
+    "page2_id": "DWE-3002501",
+    "offset1_id": "SQU-3001712",
+    "page_param_ignored": true,
+    "offset_param_works": true,
+    "envelopes": {
+      "base": {
+        "limit": 1,
+        "offset": 0,
+        "count": 1,
+        "total": 3466,
+        "has_more": true,
+        "results": "<array len=1>"
+      },
+      "page2": {
+        "limit": 1,
+        "offset": 0,
+        "count": 1,
+        "total": 3466,
+        "has_more": true,
+        "results": "<array len=1>"
+      },
+      "offset1": {
+        "limit": 1,
+        "offset": 1,
+        "count": 1,
+        "total": 3466,
+        "has_more": true,
+        "results": "<array len=1>"
+      }
+    }
+  },
+  "limit_probe": {
+    "0": {
+      "status": 422,
+      "returned": 1,
+      "echoed": {},
+      "detail": [
+        {
+          "type": "greater_than_equal",
+          "loc": [
+            "query",
+            "limit"
+          ],
+          "msg": "Input should be greater than or equal to 1",
+          "input": "0",
+          "ctx": {
+            "ge": 1
+          }
+        }
+      ]
+    },
+    "200": {
+      "status": 200,
+      "returned": 50,
+      "echoed": {
+        "limit": 50,
+        "offset": 0,
+        "count": 50,
+        "total": 3466,
+        "has_more": true
+      },
+      "detail": null
+    },
+    "201": {
+      "status": 200,
+      "returned": 50,
+      "echoed": {
+        "limit": 50,
+        "offset": 0,
+        "count": 50,
+        "total": 3466,
+        "has_more": true
+      },
+      "detail": null
+    },
+    "500": {
+      "status": 200,
+      "returned": 50,
+      "echoed": {
+        "limit": 50,
+        "offset": 0,
+        "count": 50,
+        "total": 3466,
+        "has_more": true
+      },
+      "detail": null
+    },
+    "99999": {
+      "status": 200,
+      "returned": 50,
+      "echoed": {
+        "limit": 50,
+        "offset": 0,
+        "count": 50,
+        "total": 3466,
+        "has_more": true
+      },
+      "detail": null
+    },
+    "-1": {
+      "status": 422,
+      "returned": 1,
+      "echoed": {},
+      "detail": [
+        {
+          "type": "greater_than_equal",
+          "loc": [
+            "query",
+            "limit"
+          ],
+          "msg": "Input should be greater than or equal to 1",
+          "input": "-1",
+          "ctx": {
+            "ge": 1
+          }
+        }
+      ]
+    }
+  },
+  "peek": {
+    "/v1/rentals": {
+      "status": 200,
+      "envelope": {
+        "limit": 1,
+        "offset": 0,
+        "count": 1,
+        "total": 1323,
+        "has_more": true,
+        "results": "<array len=1>"
+      },
+      "record_keys": [
+        "listing_id",
+        "listing_url",
+        "website",
+        "city_id",
+        "title",
+        "apartment_name",
+        "locality",
+        "property_type",
+        "bedroom",
+        "bathroom",
+        "floor",
+        "total_floors",
+        "furnishing",
+        "facing_direction",
+        "price",
+        "deposit",
+        "maintenance",
+        "carpet_area",
+        "super_builtup_area",
+        "latitude",
+        "longitude",
+        "posted_by",
+        "posted_by_name",
+        "posted_by_contact",
+        "description",
+        "posted_at",
+        "is_live"
+      ],
+      "first_record": {
+        "listing_id": "R3000001",
+        "listing_url": "https://www.dwelling.com/rent/3000001",
+        "website": "dwelling",
+        "city_id": 3,
+        "title": "2 BHK for rent in Viman Nagar",
+        "apartment_name": "Nitesh Boulevard",
+        "locality": "kothrud",
+        "property_type": "builder floor",
+        "bedroom": 2,
+        "bathroom": 2,
+        "floor": 0,
+        "total_floors": 11,
+        "furnishing": "fully-furnished",
+        "facing_direction": "south-east",
+        "price": 31600,
+        "deposit": 63200,
+        "maintenance": 2500,
+        "carpet_area": 827,
+        "super_builtup_area": 1113,
+        "latitude": 18.62664,
+        "longitude": 73.76212,
+        "posted_by": "agent",
+        "posted_by_name": "Shreya Iyer",
+        "posted_by_contact": "+912008723646",
+        "description": "2 BHK, fully-furnished, in Nitesh Boulevard, Kothrud. Gated society with security.",
+        "posted_at": "2026-09-04T00:21:00Z",
+        "is_live": true
+      }
+    },
+    "/v1/projects": {
+      "status": 200,
+      "envelope": {
+        "limit": 1,
+        "offset": 0,
+        "count": 1,
+        "total": 401,
+        "has_more": true,
+        "results": "<array len=1>"
+      },
+      "record_keys": [
+        "project_id",
+        "project_url",
+        "city_id",
+        "apartment_name",
+        "developer_name",
+        "locality",
+        "project_status",
+        "total_units",
+        "total_towers",
+        "total_floors",
+        "launch_date",
+        "possession_date",
+        "rera_number",
+        "min_area_sqft",
+        "max_area_sqft",
+        "amenities",
+        "latitude",
+        "longitude",
+        "total_listings",
+        "price_min",
+        "price_max"
+      ],
+      "first_record": {
+        "project_id": "P30001",
+        "project_url": "https://www.ivy.homes/projects/30001",
+        "city_id": 3,
+        "apartment_name": "Brigade Grand",
+        "developer_name": "Brigade",
+        "locality": "kharadi",
+        "project_status": "new launch",
+        "total_units": 691,
+        "total_towers": 8,
+        "total_floors": 32,
+        "launch_date": "2024-05-24",
+        "possession_date": "2028-06-29",
+        "rera_number": "PRM/KA/RERA/5327/246",
+        "min_area_sqft": 894,
+        "max_area_sqft": 3061,
+        "amenities": [
+          "pool",
+          "security",
+          "gym",
+          "clubhouse"
+        ],
+        "latitude": 18.54248,
+        "longitude": 74.01244,
+        "total_listings": 4,
+        "price_min": 80,
+        "price_max": 3.22
+      }
+    },
+    "/v1/analytics/summary": {
+      "status": 404,
+      "body": {
+        "detail": "Not Found"
+      }
+    }
+  }
+}

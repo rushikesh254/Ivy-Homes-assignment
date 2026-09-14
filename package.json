@@ -20,8 +20,11 @@
     "probe2": "node scripts/09-probe2.js",
     "saved": "node scripts/10-saved.js",
     "answers": "node scripts/11-answers.js",
+    "corrections": "node scripts/12-frontend-data.js",
     "verify": "node scripts/13-verify.js",
     "submission": "node scripts/14-submission.js",
+    "frontend:build": "cd frontend && npm run build",
+    "frontend:dev": "cd frontend && npm run dev",
     "analyse": "npm run profile && npm run units && npm run time && npm run dupes && npm run fraud && npm run corrupt && npm run answers && npm run submission && npm run verify"
   }
 }

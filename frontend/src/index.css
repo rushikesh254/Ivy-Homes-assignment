@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #0D0F14;
+  --color-card: #13161D;
+  --color-raised: #1A1E28;
+  --color-accent: #F59E0B;
+  --color-accent-text: #FCD34D;
+  --color-accent-dim: #78490A;
+  --color-ink: #F0F2F7;
+  --color-ink-2: #8B93A8;
+  --color-ink-3: #4B5268;
+  --color-border: #252A38;
+  --color-border-strong: #323848;
+  --color-success: #10B981;
+  --color-danger: #EF4444;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-data {
+  font-family: 'DM Mono', 'Fira Code', monospace;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-surface); }
+::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 3px; }
+
+.login-grid-bg {
+  background-image:
+    linear-gradient(var(--color-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+  background-size: 40px 40px;
+}

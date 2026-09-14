@@ -1,0 +1,30 @@
+{
+  "name": "ivy-dashboard",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Frontend for the Ivy Homes API — Pune property search, saved listings, and a findings-backed insights dashboard.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "oxlint src"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.102.8",
+    "axios": "^1.20.0",
+    "lucide-react": "^1.45.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.81.0",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.0"
+  }
+}

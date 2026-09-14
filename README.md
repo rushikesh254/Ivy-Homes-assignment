@@ -2,7 +2,7 @@
 
 **Internship Assignment — September 2026** · Candidate: **Bodke Rushikesh Maroti** · City: **Pune** (`city_id: 3`) · Assigned locality: **Magarpatta**
 
-Live demo: `https://<your-vercel-app>.vercel.app` · Repo: https://github.com/rushikesh254/Ivy-Homes-assignment · Answers + findings: [`submission.json`](submission.json)
+Live demo: https://ivy-homes-assignment-three.vercel.app · Repo: https://github.com/rushikesh254/Ivy-Homes-assignment · Answers + findings: [`submission.json`](submission.json)
 
 Reference moment: `2026-09-10T00:00:00+05:30` (IST)
 
@@ -241,9 +241,6 @@ The full tree — every file in the repo:
 │                                   property-groups.json, workings.json
 │
 ├── submission.json                the ten answers + 36 findings, generated, never hand-typed
-├── submission.template.json       the documented shape
-├── API_REFERENCE.md               the documentation being audited
-├── statement.md                   the assignment brief
 ├── package.json                   root: npm run pull / analyse / verify / submission / corrections
 └── .env.example → .env            credentials (gitignored)
 ```
